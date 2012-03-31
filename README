@@ -2,12 +2,14 @@
 
 FIXME: write description
 
+This is still not production ready!
+
 ## Usage
 
 FIXME: write
 
 ## License
 
-Copyright (C) 2012 FIXME
+Copyright (C) 2012 Martin Kremers
 
-Distributed under the Eclipse Public License, the same as Clojure.
+Distributed under the GPLv3, see http://www.gnu.org/licenses/gpl.html
