@@ -10,25 +10,7 @@
         [sandbar.form-authentication] [sandbar.validation] [sandbar.stateful-session] [sandbar.auth]
   ))
 
-
-
-(defn layout [content]
-    (html
-         (doctype :html4)
-         [:html
-              [:head
-                    ;(stylesheet "sandbar.css")
-                    ;(icon "icon.png")
-              ]
-              [:body
-                    [:h2 "Sandbar Security Example"]
-                    content
-                    [:br]
-                    [:div (if-let [username (current-username)]
-                                         [:div
-                                                        (str "You are logged in as " username ". ")
-                                                        (link-to "logout" "Logout")])]]]))
-
+(defn layout [content] (render-file "templates/default" { :capsule (html content) :username (current-username) }))
 (defn make-404 [] (str "404\n---\nCeci n'est pas une 404"))
 
 (defroutes my-routes 

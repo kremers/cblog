@@ -6,6 +6,7 @@
         #"/admin.*"                   :admin 
         #"/permission-denied.*"       :any
         #"/login.*"                   :any 
+        #"/logout.*"                  :any
         #"/index.html"                :any
         #"/"                          :any
         #".*"                         #{:admin :user}])
