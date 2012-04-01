@@ -1,12 +1,30 @@
 # cblog
 
-FIXME: write description
+A blogging software written in clojure. 
+
+Planned Features:
+- Search Machine friendly URLs
+- Posts (Pictures, Videos), Tags, Categories
+- Comments, Askimet Integration
+- ATOM, RSS feeds
 
 This is still not production ready!
 
+Why just another blog?
+- Maybe my wordpress instance is going offline (server not longer available) in a few days or month
+- Building reference projects for clojure
+- Run it on Heroku & S3
+
+Tech goal:
+- High scalable
+- No data stored at application servers
+- Optional caching with memcached
+- Binary data in S3, other data in MongoDB (sessions, posts, ...)
+- "Reference" building for a clojure web stack
+
 ## Usage
 
-FIXME: write
+git clone, ./run.sh
 
 ## License
 
