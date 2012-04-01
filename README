@@ -2,6 +2,10 @@
 
 A blogging software written in clojure. 
 
+Next todos:
+- Refactor sandbar "layout" function to moustache tempalte
+- Write the persistent user sessions to mongodb
+
 Planned Features:
 - Search Machine friendly URLs
 - Posts (Pictures, Videos), Tags, Categories
