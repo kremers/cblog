@@ -5,9 +5,10 @@ A blogging software written in clojure.
 Next todos:
 
 * <del>Refactor sandbar "layout" function to moustache tempalte</del>
-* Write the persistent user sessions to mongodb
 * <del>Datamodel for posts,...</del>
+* Write the persistent user sessions to mongodb
 * S3 connection and binary data upload
+* Simple functionality to add crud posts
 
 Planned Features:
 
@@ -27,7 +28,7 @@ Why just another blog?
 Tech goal:
 
 * High scalable
-* No data stored at application servers
+* No data stored on application servers
 * Optional caching with memcached
 * Binary data in S3, other data in MongoDB (sessions, posts, ...)
 * "Reference" building for a clojure web stack
