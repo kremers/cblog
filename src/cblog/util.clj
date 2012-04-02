@@ -1,6 +1,8 @@
 (ns cblog.util
+  (:refer-clojure :exclude [extend])
   (:import [java.io BufferedReader] [java.io InputStreamReader])
-  (:use [sandbar.auth] [stencil.core] [hiccup core page-helpers]))
+  (:use [sandbar.auth] [stencil.core] [hiccup core page-helpers]
+        [clj-time.core] [clj-time.format]))
 
 ; Macro to recieve a BufferedReader from a request body
 (defmacro with-req-body [[binding] req & body] `(with-open [r# (~req :body)] (let [~binding (BufferedReader. (InputStreamReader. r#))] ~@body)))
@@ -13,4 +15,7 @@
 
 ; 404 Message
 (defn make-404 [] (str "404\n---\nCeci n'est pas une 404"))
+
+; Generate timestamp
+(defn gen-timestamp [] (unparse (formatters :date-hour-minute-second) (now)))
 

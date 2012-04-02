@@ -1,13 +1,23 @@
 (ns cblog.db
   (:use [monger.core :only [connect! connect set-db! get-db]]
-        [monger.collection :only [find-maps]] [monger.operators]))
+        [monger.collection :only [find-maps find-one-as-map]] [monger.operators]
+        [validateur.validation] [cblog.util]))
 
 (def dbname "cblog")
 (defn connect-to-db! [] (connect!) (monger.core/set-db! (monger.core/get-db dbname)))
-(defn +user [& [params]] (merge {:login nil :pass nil :nicename nil :email nil :url nil :registrationdate nil :active false} params))
-(defn +post [& [params]] (merge  {:pname nil :title nil :content nil :active false :author nil :created nil :lastmodified nil} params))
-(defn dbauth [user pass] (find-maps "users" {:login user :pass pass}))
-(defn +category [& [params]] (merge {:name nil :nicename nil :lastmodified nil} params))
+
+(defn +user [& [init]] 
+  (merge {:login nil :pass nil :nicename nil :email nil :url nil :created (gen-timestamp) :active false} init))
+(defn +post [& [init]] 
+  (merge {:pname nil :title nil :content nil :active false :author nil :created (gen-timestamp) :lastmodified nil :category nil :tags nil } init))
+(defn +category [& [init]] 
+  (merge {:name nil :nicename nil :lastmodified nil} init))
+
+(defn valid-user? [user] (let [v (validation-set (presence-of :login) (presence-of :pass)) ] (valid? v user)))
+
+(defn dbauth [user pass] (find-one-as-map "users" {:login user :pass pass}))
+(defn posts-by-category [category] (sort-by :created (find-maps "posts" {:category category})))
+(defn all-categories [] (find-maps "categories"))
 
 ; Example how to add users
 ; (insert "users" (+user {:login "user" :pass "user" :nicename "mruser" :active true}))

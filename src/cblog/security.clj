@@ -1,4 +1,4 @@
-(ns cblog.security (:use (sandbar core stateful-session auth form-authentication validation)))
+(ns cblog.security (:use [sandbar core stateful-session auth form-authentication validation] [cblog db]))
 
 (def security-policy
        [#".*\.(css|js|png|jpg|gif|ico)$" :any
@@ -14,13 +14,12 @@
     FormAuthAdapter
     (load-user [this username password]
          (let [login {:username username :password password}]
-                (cond (= username "member") (merge login {:roles #{:member}})
-                (= username "admin")        (merge login {:roles #{:admin}})
+                (cond (= username "admin")        (merge login {:roles #{:admin}})
                 :else login)))
     (validate-password
          [this]
          (fn [m]
-                (if (= (:password m) (:username m))
+                (if-not (empty? (dbauth (:username m) (:password m)))
                          m
                          (add-validation-error m "Username and password do not match!")))))
 
