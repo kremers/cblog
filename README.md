@@ -6,7 +6,7 @@ Next todos:
 
 * <del>Refactor sandbar "layout" function to moustache tempalte</del>
 * Write the persistent user sessions to mongodb
-* </del>Datamodel for posts,...</del>
+* <del>Datamodel for posts,...</del>
 * S3 connection and binary data upload
 
 Planned Features:

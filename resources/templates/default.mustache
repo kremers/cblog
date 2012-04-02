@@ -1,18 +1,60 @@
 <!DOCTYPE html>
 <html>
         <head>
-            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-            <title>cblog</title>
-            <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-            <script type="text/javascript" src="https://raw.github.com/douglascrockford/JSON-js/master/json2.js"></script>
+          <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	  <meta name="distribution" content="global" />
+	  <meta name="robots" content="follow, all" />
+	  <meta name="language" content="en, de" />
+
+	  <title>{{blogname}}</title>
+          <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+	    <!-- <script type="text/javascript" src="https://raw.github.com/douglascrockford/JSON-js/master/json2.js"></script> -->
 	    <!-- <script type="text/javascript" src="js/app.js"></script> -->
+    	  <style type="text/css" media="screen">
+	     <!-- @import url( http://www.martinkremers.de/blog/wp-content/themes/whitespace/style.css ); -->
+	  </style>
+
     </head>
     <body>
+    <div id="wrap">
+      <div id="header">
+	<div id="headerleft">
+		<a href="#">CBLOG {{blogname}}</a><br />
+	</div>
+	<div id="headerright">
+		<ul>
+			<li class="page_item"><a href="#">About</a></li>
+		</ul>
+	</div>
+      </div>
 
-	    {{{capsule}}}  
+      <div style="clear:both;"></div>
 
+      <div id="tagline" style="height:4px;"></div>
 
+      <div id="content">
+        <div id="l_sidebar">
+	  <ul id="l_sidebarwidgeted">
+	    <li id="recent-posts-3" class="widget widget_recent_entries"> 
+	    <h2 class="widgettitle">Recent Posts</h2>
+	    <li><a href="#" title="sometitle">recent entry 1</a></li>
+	    </li></ul>
+  </div>
+
+  <div id="contentleft">
+	  <!-- Main content goes here -->
+	   {{{capsule}}}
+  </div>
+
+  <div id="r_sidebar">
+    <ul id="r_sidebarwidgeted">
+      <li id="tag_cloud-2" class="widget widget_tag_cloud"><h2 class="widgettitle">Tags</h2>
+      <div class="tagcloud"> </div>
+      </li>
+    </ul>
+  </div>
 	    {{#username}}
 	    <div id="credentialinfo"> You are logged in as <b>{{username}}</b>, <a href="logout">Logout</a> </div>
 	    {{/username}}
+</div>
 </html>

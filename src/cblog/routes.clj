@@ -9,8 +9,9 @@
   ))
 
 (defroutes my-routes 
-    (GET "/" [] (utf8response (render-file "templates/main" nil)))
+    (GET "/" [] (utf8response (render-file "templates/default" {:capsule (render-file "templates/main" nil) })))
     (form-authentication-routes (fn [_ c] (layout c)) (form-authentication-adapter))
+    (GET "/admin" [] (utf8response (render-file "templates/default" {:capsule (render-file "templates/admin" nil) })))
     (ANY "*" [] (utf8response (make-404)))
 )
 
