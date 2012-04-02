@@ -1,5 +1,4 @@
-(ns cblog.security
-  (:use (sandbar core stateful-session auth form-authentication validation)))
+(ns cblog.security (:use (sandbar core stateful-session auth form-authentication validation)))
 
 (def security-policy
        [#".*\.(css|js|png|jpg|gif|ico)$" :any
@@ -26,10 +25,5 @@
                          (add-validation-error m "Username and password do not match!")))))
 
 (defn form-authentication-adapter [] (DemoAdapter.))
-
-;(defn query [type]
-;    (ensure-any-role-if (= type :top-secret) #{:admin}
-;                                              (= type :members-only) #{:member}
-;                                              (str (name type) " data")))
 
 
