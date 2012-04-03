@@ -1,6 +1,8 @@
 # cblog
 **This is still not production ready!**
 
+![build status](https://secure.travis-ci.org/kremers/cblog.png?branch=master)
+
 A blogging software written in clojure. 
 
 Next todos:
