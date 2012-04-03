@@ -2,5 +2,7 @@
   (:use [cblog.core])
   (:use [clojure.test]))
 
-(deftest replace-me ;; FIXME: write
-  (is false "No tests have been written."))
+; Yes I know, no tests here at the moment
+
+;(deftest replace-me 
+;  (is false "No tests have been written."))
