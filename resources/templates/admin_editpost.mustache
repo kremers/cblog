@@ -1,0 +1,92 @@
+
+{{#postid}}<h2 class="widgettitle">Edit Post</h2>{{/postid}}
+{{^postid}}<h2 class="widgettitle">Add New Post</h2>{{/postid}}
+
+<style type="text/css">
+.uiwidget {
+  float:right; margin-right: auto; border-color: #D1E5EE; border-radius: 3px; position: relative; border-style: solid; border-width: 1px;
+  width:150px; padding:5px; background-color: #F7FCFE; margin:5px;
+}
+
+.uiwidget h3 {
+  margin:0px ; padding: 7px 10px; font-size: 15px; line-height: 1; color: #174F69; text-align:center;
+}
+
+.actionbutton {
+ text-decoration: none; font-size: 12px!important; line-height: 13px; padding: 3px 8px;
+cursor: pointer; border-width: 1px; border-style: solid; -moz-box-sizing: content-box;
+-webkit-box-sizing: content-box; box-sizing: content-box; -webkit-border-radius: 5px;
+border-radius: 5px; width:100px; color: #464646; border-color: #BBB; font-weight: bold;
+}
+
+input, textarea {-webkit-border-radius: 3px;
+border-radius: 3px;
+border-width: 1px;
+border-style: solid;
+border-color: #BDCCD5;
+-webkit-box-sizing: border-box;
+box-sizing: border-box;
+color: grey;
+}
+
+#title-prompt-text {
+color: #BBB;
+position: absolute;
+font-size: 1.4em;
+padding: 8px 10px;
+}
+
+#title {
+  padding: 3px 8px;
+font-size: 1.7em;
+line-height: 100%;
+outline: none;
+width:300px;
+}
+
+#textarea {
+ padding: 3px 8px;
+line-height: 100%;
+outline: none;
+width:300px;
+}
+</style>
+
+<script type="text/javascript">
+$(document).ready(function() {
+ $("#title").focus(function(e) { $("#title-prompt-text").hide()   } );
+ $("#title").blur(function() { if($(this).val() == "") $("#title-prompt-text").show();  } );
+});
+</script>
+
+<form action="post/save">
+<div id="postcontainer" style="position: relative; float: left;">
+  {{#postid}}<input name="postid" type="hidden" value="{{postid}}" />{{/postid}}
+  <label class="hide-if-no-js" style="" id="title-prompt-text" for="title">Enter title here</label>
+  <input type="text" name="title" size="30" tabindex="1" value="" id="title" autocomplete="off"> <br />
+  <textarea id="textarea" name="content" cols="35" rows="20"></textarea>
+</div>
+
+<div id="submitbuttons" class="uiwidget">
+  <h3>Publish</h3>
+  <div style="text-align:center;">
+    <input type="button" name="preview" id="preview" value="Preview"   class="actionbutton" /> <br />
+    <input type="submit" name="save" id="save-post" value="Save Draft" class="actionbutton" /> <br />
+    <input type="submit" name="save" id="save"      value="Save"       class="actionbutton" /> <br />
+  </div>
+</div>
+
+<div id="choosecategorybox" class="uiwidget">
+  <h3>Category</h3>
+  <div style="text-align:center;">
+  <select name="category" class="actionbutton">
+      <option value="categoryid">Welcome*</option>
+  </select>
+  </div>
+</div>
+</form>
+
+<!--Tags
+=> Add/Remove
+-->
+

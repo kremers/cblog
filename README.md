@@ -1,4 +1,5 @@
 # cblog
+**This is still not production ready!**
 
 A blogging software written in clojure. 
 
@@ -6,9 +7,14 @@ Next todos:
 
 * <del>Refactor sandbar "layout" function to moustache tempalte</del>
 * <del>Datamodel for posts,...</del>
-* Write the persistent user sessions to mongodb
-* S3 connection and binary data upload
 * Simple functionality to add crud posts
+* Defensive bootstrap of database with default categories and users
+* (Web-)design changes
+* S3 connection and binary data upload
+
+Later:
+
+* Write the persistent user sessions to mongodb, currently existing frameworks do not work with monger and clojure 1.3. Fork and refactor them
 
 Planned Features:
 
@@ -16,8 +22,6 @@ Planned Features:
 * Posts (Pictures, Videos), Tags, Categories
 * Comments, Askimet Integration
 * ATOM, RSS feeds
-
-This is still not production ready!
 
 Why just another blog?
 
@@ -31,7 +35,7 @@ Tech goal:
 * No data stored on application servers
 * Optional caching with memcached
 * Binary data in S3, other data in MongoDB (sessions, posts, ...)
-* "Reference" building for a clojure web stack
+* "Reference" building for a clojure web stacks
 
 ## Usage
 

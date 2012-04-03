@@ -19,7 +19,7 @@
 (defn posts-by-category [category] (sort-by :created (find-maps "posts" {:category category})))
 (defn all-categories [] (find-maps "categories"))
 
-; Example how to add users
-; (insert "users" (+user {:login "user" :pass "user" :nicename "mruser" :active true}))
-
+; Example how to add data
+; (insert "users" (+user {:login "admin" :pass "admin" :nicename "Administrator" :active true}))
+; (insert "categories" (+category {:name "Welcome" :nicename "Landing page" :lastmodified (gen-timestamp)}))
 

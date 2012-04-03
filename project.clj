@@ -15,7 +15,6 @@
                  [sandbar/sandbar "0.4.0-SNAPSHOT"]]
    :main cblog.core
    :source-path "src"
-   :java-source-path "jsrc"
    :ring {:handler cblog.core/routes}
    :properties { :project.build.sourceEncoding "UTF-8" }
 )
