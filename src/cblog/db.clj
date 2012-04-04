@@ -9,7 +9,7 @@
 (defn +user [& [init]] 
   (merge {:login nil :pass nil :nicename nil :email nil :url nil :created (gen-timestamp) :active false} init))
 (defn +post [& [init]] 
-  (merge {:pname nil :title nil :content nil :active false :author nil :created (gen-timestamp) :lastmodified nil :category nil :tags nil } init))
+  (merge {:title nil :content nil :active false :author nil :created (gen-timestamp) :lastmodified nil :category nil :tags nil } init))
 (defn +category [& [init]] 
   (merge {:name nil :nicename nil :lastmodified nil} init))
 
@@ -22,4 +22,4 @@
 ; Example how to add data
 ; (insert "users" (+user {:login "admin" :pass "admin" :nicename "Administrator" :active true}))
 ; (insert "categories" (+category {:name "Welcome" :nicename "Landing page" :lastmodified (gen-timestamp)}))
-
+; (insert "posts" (+post {:title "This is cblog" :content "A real clojure blog written by Martin Kremers" :active true :author "admin" :category "Welcome"}))

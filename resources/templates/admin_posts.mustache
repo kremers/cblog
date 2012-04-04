@@ -1,8 +1,11 @@
 
 <h2>Posts</h2>
-<a href="/admin/posts/edit">Add new</a> | <a href="#">All (xx)</a> | <a href="#">Published (xx)</a> | <a href="#">Draft (xx)</a> <br /> <br />
+<a href="/admin/posts/edit">Add new</a> | <a href="#">All ({{sum}})</a> | <a href="#">Published ({{active}})</a> | <a href="#">Draft ({{inactive}})</a> <br /> <br />
 
 <table width="100%">
-  <tr> <th>Title</th> <th>Author</th> <th>Categories</th> <th>Tags</th> <th>Comments</th> <th>Date</th> </tr>
+  <tr> <th>Title</th> <th>Author</th> <th>Category</th> <th>Tags</th> <th>Comments</th> <th>Date</th> </tr>
+{{#posts}}
+  <tr style="text-align:center;"> <td>{{title}}</td> <td>{{author}}</td> <td>{{category}}</td> <td></td> <td></td> <td>{{created}}</td> </tr>
+{{/posts}}
 </table>
 

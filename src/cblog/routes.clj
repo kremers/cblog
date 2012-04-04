@@ -3,7 +3,7 @@
         [net.cgrand.moustache :only [app]]
         [ring.util.response :only [response redirect header]]
         [stencil.core]
-        [cblog util security]
+        [cblog util security admin db]
         [compojure core]
         [sandbar.form-authentication] [sandbar.validation] [sandbar.stateful-session] [sandbar.auth]
   ))
@@ -13,13 +13,14 @@
 
 (defroutes my-routes 
     (form-authentication-routes (fn [_ c] (layout c)) (form-authentication-adapter))
-    (GET "/" [] (envelope (render-file "templates/main" nil) ))
-    (GET "/admin" [] (redirect "/admin/"))
-    (GET "/admin/" [] (envelope (render-file "templates/admin" nil)))
-    (GET "/admin/posts" [] (redirect "/admin/posts/"))
-    (GET "/admin/posts/" [] (envelope (render-file "templates/admin_posts" nil)))
-    (GET "/admin/posts/edit" [] (envelope (render-file "templates/admin_editpost" nil)))
-    (ANY "*" [] (utf8response (make-404)))
+    (GET  "/" [] (envelope (render-file "templates/main" {:posts (vec (posts-by-category "Welcome"))}) ))
+    (GET  "/admin" [] (redirect "/admin/"))
+    (GET  "/admin/" [] (envelope (render-file "templates/admin" nil)))
+    (GET  "/admin/posts" [] (redirect "/admin/posts/"))
+    (GET  "/admin/posts/" [] (envelope (render-file "templates/admin_posts" (posts-overview))))
+    (GET  "/admin/posts/edit" {params :params} (envelope (render-file "templates/admin_editpost" (prepare-edit params))))
+    (POST "/admin/posts/save" {params :params} (envelope (save-post params)))
+    (ANY  "*" [] (utf8response (make-404)))
 )
 
 (defn init-routes! [] (app 

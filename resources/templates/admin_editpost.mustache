@@ -59,7 +59,7 @@ $(document).ready(function() {
 });
 </script>
 
-<form action="post/save">
+<form action="save" method="post">
 <div id="postcontainer" style="position: relative; float: left;">
   {{#postid}}<input name="postid" type="hidden" value="{{postid}}" />{{/postid}}
   <label class="hide-if-no-js" style="" id="title-prompt-text" for="title">Enter title here</label>
@@ -80,7 +80,9 @@ $(document).ready(function() {
   <h3>Category</h3>
   <div style="text-align:center;">
   <select name="category" class="actionbutton">
-      <option value="categoryid">Welcome*</option>
+{{#categories}}  
+    <option value="{{name}}">{{name}}</option>
+{{/categories}}
   </select>
   </div>
 </div>
