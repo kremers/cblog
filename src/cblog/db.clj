@@ -16,7 +16,7 @@
 (defn valid-user? [user] (let [v (validation-set (presence-of :login) (presence-of :pass)) ] (valid? v user)))
 
 (defn dbauth [user pass] (find-one-as-map "users" {:login user :pass pass}))
-(defn posts-by-category [category] (sort-by :created (find-maps "posts" {:category category})))
+(defn posts-by-category [category] (reverse (sort-by :created (find-maps "posts" {:category category :active true}))))
 (defn all-categories [] (find-maps "categories"))
 
 ; Example how to add data

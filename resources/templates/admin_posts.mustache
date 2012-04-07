@@ -3,9 +3,11 @@
 <a href="/admin/posts/edit">Add new</a> | <a href="#">All ({{sum}})</a> | <a href="#">Published ({{active}})</a> | <a href="#">Draft ({{inactive}})</a> <br /> <br />
 
 <table width="100%">
-  <tr> <th>Title</th> <th>Author</th> <th>Category</th> <th>Tags</th> <th>Comments</th> <th>Date</th> </tr>
+  <tr> <th>Title</th> <th>Author</th> <th>Category</th> <th>Tags</th> <th>Comments</th> <th>Date</th><th></th> </tr>
 {{#posts}}
-  <tr style="text-align:center;"> <td>{{title}}</td> <td>{{author}}</td> <td>{{category}}</td> <td></td> <td></td> <td>{{created}}</td> </tr>
+  <tr style="text-align:center;"> <td>{{title}}</td> <td>{{author}}</td> <td>{{category}}</td> <td></td> <td></td> <td>{{created}}</td>
+  <td><img src="/img/remove.png" class="deleteicon" /> 
+  <a href="edit?id={{_id}}"><img src="/img/edit.png" class="editicon" /> </td> </tr>
 {{/posts}}
 </table>
 

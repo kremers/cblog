@@ -7,10 +7,12 @@
 (defn posts-overview [] 
   (let [posts (vec (find-maps "posts")) 
         sum (count posts)
-        active (count (filter #(= (:active %)) posts)) 
+        active (count (filter #(true? (:active %)) posts)) 
         inactive (- sum active)] 
     {:posts posts :sum sum :active active :inactive inactive}))
 
+
+; Check if "id" is set,... => update
 (defn save-post [params]
   (println (pr-str params))
   (let [post 
@@ -21,9 +23,12 @@
      (insert "posts" post) 
      (insert "posts" (assoc post :active true)))))
 
-; (find-map-by-id "posts" (ObjectId. ....)
-
 (defn prepare-edit [params]
-    (info params) 
-    {:categories (vec (find-maps "categories"))}
-  )
+  (let [categories (vec (find-maps "categories"))]
+  (if-let [id (params "id")] 
+    (let [post (find-map-by-id "posts" (ObjectId. id))] 
+      { :post post :categories (map #(if (= (:category post) (:name %1)) (assoc %1 :selected true) %1) categories) })
+  {:categories categories} ))
+)
+
+

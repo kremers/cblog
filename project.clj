@@ -11,8 +11,10 @@
                  [cheshire "2.0.4"]
                  [ch.qos.logback/logback-classic "1.0.0"]
                  [stencil "0.2.0"]
-                 [com.novemberain/monger "1.0.0-beta2"]
-                 [sandbar/sandbar "0.4.0-SNAPSHOT"]]
+                 [com.novemberain/monger "1.0.0-SNAPSHOT"]
+                 [kremers/sandbar "0.4.0-SNAPSHOT"]
+                 ;[com.novemberain/validateur "1.1.0-beta1"]
+                 ]
    :main cblog.core
    :source-path "src"
    :ring {:handler cblog.core/routes}

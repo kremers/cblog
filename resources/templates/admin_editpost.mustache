@@ -54,6 +54,7 @@ width:300px;
 
 <script type="text/javascript">
 $(document).ready(function() {
+ if($("#title").val() != "") $("#title-prompt-text").hide();
  $("#title").focus(function(e) { $("#title-prompt-text").hide()   } );
  $("#title").blur(function() { if($(this).val() == "") $("#title-prompt-text").show();  } );
 });
@@ -61,10 +62,10 @@ $(document).ready(function() {
 
 <form action="save" method="post">
 <div id="postcontainer" style="position: relative; float: left;">
-  {{#postid}}<input name="postid" type="hidden" value="{{postid}}" />{{/postid}}
+  {{#post._id}}<input name="postid" type="hidden" value="{{post._id}}" />{{/post._id}}
   <label class="hide-if-no-js" style="" id="title-prompt-text" for="title">Enter title here</label>
-  <input type="text" name="title" size="30" tabindex="1" value="" id="title" autocomplete="off"> <br />
-  <textarea id="textarea" name="content" cols="35" rows="20"></textarea>
+  <input type="text" name="title" size="30" tabindex="1" id="title" autocomplete="off" value="{{post.title}}"> <br />
+  <textarea id="textarea" name="content" cols="35" rows="20">{{post.content}}</textarea>
 </div>
 
 <div id="submitbuttons" class="uiwidget">
@@ -81,7 +82,7 @@ $(document).ready(function() {
   <div style="text-align:center;">
   <select name="category" class="actionbutton">
 {{#categories}}  
-    <option value="{{name}}">{{name}}</option>
+    <option value="{{name}}" {{#selected}} selected="selected" {{/selected}}>{{name}}</option>
 {{/categories}}
   </select>
   </div>
