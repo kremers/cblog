@@ -1,5 +1,5 @@
 (ns cblog.admin (:import [org.bson.types ObjectId]) 
-  (:use [cblog.db] [monger.collection :only [find-maps find-map-by-id find-one-as-map insert]]
+  (:use [cblog.db] [monger.collection :only [find-maps update-by-id find-map-by-id find-one-as-map insert]]
                       [monger.operators] [clojure.tools.logging :only (info error)]))
 ; 1. Generate a map with all required entries for the administrator pages
 ; 2. Provide functionality to handle CRUD and more
@@ -14,14 +14,13 @@
 
 ; Check if "id" is set,... => update
 (defn save-post [params]
-  (println (pr-str params))
-  (let [post 
-         (+post { :title (params "title") 
-                :category (params "category")
-                :content (params "content")})] 
-   (if-let [draft (= (params "save") "Save Draft")] 
-     (insert "posts" post) 
-     (insert "posts" (assoc post :active true)))))
+  (let [ draft? (= (params "save") "Save Draft")
+         post   (+post { :title (params "title")
+                         :category (params "category")
+                         :content (params "content")
+                         :active (not draft?)})]  
+  (if-let [id (params "postid")] (update-by-id "posts" (ObjectId. id) post) (insert "posts" post))))
+  
 
 (defn prepare-edit [params]
   (let [categories (vec (find-maps "categories"))]
