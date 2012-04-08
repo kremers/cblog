@@ -1,0 +1,49 @@
+<script type="text/javascript">
+ $(document).ready(function() {
+$(".deleteicon").click(function() {
+                        var content = JSON.stringify({id: this.id}, null, 2);
+                        if(!confirm("sure?")) return;
+                        $.ajax({ type: 'POST', contentType: 'application/json', url: 'remove', data: content, processData: false, dataType: 'json',
+                               success: function(data) {location.reload(true);}});
+                });
+
+$('#name_txt').focus();
+$('#name_txt').keydown(function(e) { /* 13 = return key */if( e.keyCode === 13) { $("#saveTaskButton").trigger('click'); }});
+$('#add').submit(function() {return false;});
+
+ $('#saveButton').click(function() { var content = JSON.stringify({name: $("#name_txt").val()}, null, 2);
+                    $.ajax({
+                       type: 'POST',
+                       contentType: 'application/json',
+                       url: 'save',
+                       data: content,
+                       success: function(data) { location.reload(true); },
+                       processData: false,
+                       dataType: 'json'
+                    });
+                    });
+});
+</script>
+
+<h2>Categories</h2>
+
+ <div id="addbox"  style="width:100%;">
+        <label for="name_txt" >Add new Category: </label><input id="name_txt" name="name" type="text" size="30" maxlength="200" />
+        <img id="saveButton" src="/img/disc.gif" />
+ </div>
+<br />
+<div id="categorytable">
+<table width="100%">
+  <tr> <th></th> <th>Name</th> <th>URL - Friendly</th></tr>
+{{#categories}}
+  <tr>
+  <td>
+    <a href="#"><img id="{{_id}}" src="/img/edit.png" class="editicon" /></a>
+    | <img src="/img/remove.png" id="{{_id}}" class="deleteicon" />
+  </td>
+  <td>{{name}}</td>
+  <td>{{urlfriendly}} - </td>
+{{/categories}}
+</table>
+</div>
+

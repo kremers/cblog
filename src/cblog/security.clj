@@ -2,6 +2,7 @@
 
 (def security-policy
        [#".*\.(css|js|png|jpg|gif|ico)$" :any
+        #"/admin/bootstrap"           :any
         #"/admin.*"                   :admin 
         #"/permission-denied.*"       :any
         #"/login.*"                   :any 

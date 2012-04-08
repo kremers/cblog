@@ -11,11 +11,11 @@ Next todos:
 * <del>Datamodel for posts,...</del>
 * <del>Simple functionality to add crud posts</del>
 * <del>Defensive bootstrap of database with default categories, settings and users</del>
-* CRUD for categories
+* <del>CRUD for categories</del>
 * Routes to view categories and posts by /:category/:post
 * HideTitle Option for posts
 * Settings section (configure blog name, admin password, ...)
-* AdminUI, Output and Selection for categories
+* <del>AdminUI, Output and Selection for categories</del>
 * S3 connection and binary data upload
 
 Later:

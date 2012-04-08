@@ -9,8 +9,6 @@
         inactive (- sum active)] 
     {:posts posts :sum sum :active active :inactive inactive}))
 
-
-; Check if "id" is set,... => update
 (defn save-post [params]
   (let [ draft? (= (params "save") "Save Draft")
          post   (+post { :title (params "title")
@@ -29,5 +27,10 @@
       { :post post :categories (map #(if (= (:category post) (:name %1)) (assoc %1 :selected true) %1) categories) })
   {:categories categories} ))
 )
+
+(defn categories-overview [] {:categories (vec (find-maps "categories"))})
+(defn remove-category [req] (generate-string {:result (str (remove-by-id "categories" (ObjectId. (:id (json-in req)))))}))
+(defn save-category [req] (generate-string {:result (str (let [data (json-in req)] (insert "categories" (+category {:name (:name data) :urlfriendly (:urlfriendly data)}))))}))
+
 
 

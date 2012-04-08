@@ -28,11 +28,18 @@
 			{{/headercategories}}
 		</ul>
 	</div>
+	<div id="headerbottom">
+	  {{#username}}
+	  <div id="credentialinfo" style="font-size:7pt; float:right; padding-right:10px;">
+		  You are logged in as <b>{{username}}</b>, <a style="font-size:7pt;" href="logout">Logout</a> 
+	  </div>
+          {{/username}}
+	</div>
       </div>
 
       <div style="clear:both;"></div>
 
-      <div id="tagline" style="height:4px;"></div>
+      <div id="tagline" style="height:4px; width:945px;" ></div>
 
       <div id="content">
         <div id="l_sidebar">
@@ -43,6 +50,12 @@
 	    <li><a href="{{category}}/{{title}}" title="{{title}}">{{title}}</a></li>
 	    {{/recentposts}}
 	    </li></ul>
+
+	    <li id="linkcat-2" class="widget widget_links" style="list-style: none;"><h2 class="widgettitle">Blogroll</h2>
+	    	<ul class="xoxo blogroll">
+			<li><a href="http://xkcd.com/">XKCD</a></li>
+		</ul>
+	    </li>
   </div>
 
   <div id="contentleft" style="padding: 0px;">
@@ -57,8 +70,5 @@
       </li>
     </ul>
   </div>
-	    {{#username}}
-	    <div id="credentialinfo"> You are logged in as <b>{{username}}</b>, <a href="logout">Logout</a> </div>
-	    {{/username}}
 </div>
 </html>
