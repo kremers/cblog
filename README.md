@@ -10,7 +10,10 @@ Next todos:
 * <del>Refactor sandbar "layout" function to moustache tempalte</del>
 * <del>Datamodel for posts,...</del>
 * <del>Simple functionality to add crud posts</del>
-* Defensive bootstrap of database with default categories and users
+* <del>Defensive bootstrap of database with default categories, settings and users</del>
+* CRUD for categories
+* Routes to view categories and posts by /:category/:post
+* HideTitle Option for posts
 * Settings section (configure blog name, admin password, ...)
 * AdminUI, Output and Selection for categories
 * S3 connection and binary data upload

@@ -1,6 +1,6 @@
 (defproject cblog "0.1.0-SNAPSHOT"
   :description "simple blog in clojure"
-  :dev-dependencies [[lein-ring "0.5.2"]]
+  :dev-dependencies [[lein-ring "0.6.3"]]
   :dependencies [[org.clojure/clojure "1.3.0"]
                  [ring "1.0.0"]
                  [clj-time "0.3.3"]

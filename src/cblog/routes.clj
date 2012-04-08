@@ -9,7 +9,7 @@
   ))
 
 
-(defn envelope [content] (utf8response (render-file "templates/default"  {:capsule content})))
+(defn envelope [content] (utf8response (render-file "templates/default"  (merge {:capsule content} (basicinfo)))))
 
 (defroutes my-routes 
     (form-authentication-routes (fn [_ c] (layout c)) (form-authentication-adapter))
@@ -21,6 +21,7 @@
     (GET  "/admin/posts/edit" {params :params} (envelope (render-file "templates/admin_editpost" (prepare-edit params))))
     (POST "/admin/posts/remove" request (utf8response (remove-post request)))
     (POST "/admin/posts/save" {params :params} (envelope (save-post params)))
+    (GET  "/admin/bootstrap" [] (do (bootstrap-database) (utf8response "bootstraped! See log for details.")))
     (ANY  "*" [] (utf8response (make-404)))
 )
 
