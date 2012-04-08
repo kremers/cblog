@@ -11,7 +11,7 @@ Next todos:
 * <del>Datamodel for posts,...</del>
 * <del>Simple functionality to add crud posts</del>
 * Defensive bootstrap of database with default categories and users
-* Settings section (configure blog name, ...)
+* Settings section (configure blog name, admin password, ...)
 * AdminUI, Output and Selection for categories
 * S3 connection and binary data upload
 
@@ -19,8 +19,8 @@ Later:
 
 * Write the persistent user sessions to mongodb, currently existing frameworks do not work with monger and clojure 1.3. Fork and refactor them
 * Media Section
-* Enhance AdminUI with more ajax feeling
-* (Web-)design changes
+* User Management
+* Enhance AdminUI with more ajax feeling & (Web-)design changes
 * Tag Cloud
 
 Planned Features:
