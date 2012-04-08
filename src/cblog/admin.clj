@@ -1,5 +1,5 @@
 (ns cblog.admin (:import [org.bson.types ObjectId]) 
-  (:use [cblog.db] [monger.collection :only [find-maps update-by-id find-map-by-id find-one-as-map insert]]
+  (:use [cblog db util] [cheshire.core] [sandbar.auth] [monger.collection :only [find-maps remove-by-id update-by-id find-map-by-id find-one-as-map insert]]
                       [monger.operators] [clojure.tools.logging :only (info error)]))
 ; 1. Generate a map with all required entries for the administrator pages
 ; 2. Provide functionality to handle CRUD and more
@@ -16,11 +16,13 @@
 (defn save-post [params]
   (let [ draft? (= (params "save") "Save Draft")
          post   (+post { :title (params "title")
+                         :author (current-username)
                          :category (params "category")
                          :content (params "content")
                          :active (not draft?)})]  
   (if-let [id (params "postid")] (update-by-id "posts" (ObjectId. id) post) (insert "posts" post))))
-  
+
+(defn remove-post [req] (generate-string {:result (str (remove-by-id "posts" (ObjectId. (:id (json-in req)))))}))
 
 (defn prepare-edit [params]
   (let [categories (vec (find-maps "categories"))]

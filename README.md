@@ -9,14 +9,19 @@ Next todos:
 
 * <del>Refactor sandbar "layout" function to moustache tempalte</del>
 * <del>Datamodel for posts,...</del>
-* Simple functionality to add crud posts
+* <del>Simple functionality to add crud posts</del>
 * Defensive bootstrap of database with default categories and users
-* (Web-)design changes
+* Settings section (configure blog name, ...)
+* AdminUI, Output and Selection for categories
 * S3 connection and binary data upload
 
 Later:
 
 * Write the persistent user sessions to mongodb, currently existing frameworks do not work with monger and clojure 1.3. Fork and refactor them
+* Media Section
+* Enhance AdminUI with more ajax feeling
+* (Web-)design changes
+* Tag Cloud
 
 Planned Features:
 

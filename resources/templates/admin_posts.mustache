@@ -1,13 +1,30 @@
 
+<script type="text/javascript">
+ $(document).ready(function() {
+$(".deleteicon").click(function() {
+                        var content = JSON.stringify({id: this.id}, null, 2);
+                        if(!confirm("sure?")) return;
+                        $.ajax({ type: 'POST', contentType: 'application/json', url: 'remove', data: content, processData: false, dataType: 'json',
+                               success: function(data) {location.reload(true);}});
+                });
+});
+</script>
+
 <h2>Posts</h2>
 <a href="/admin/posts/edit">Add new</a> | <a href="#">All ({{sum}})</a> | <a href="#">Published ({{active}})</a> | <a href="#">Draft ({{inactive}})</a> <br /> <br />
 
 <table width="100%">
-  <tr> <th>Title</th> <th>Author</th> <th>Category</th> <th>Tags</th> <th>Comments</th> <th>Date</th><th></th> </tr>
+  <tr> <th></th> <th>Title</th> <th>Status</th> <th>Author</th> <th>Category</th> <!--<th>Tags</th> <th>Comments</th>--> <th>Date</th></tr>
 {{#posts}}
-  <tr style="text-align:center;"> <td>{{title}}</td> <td>{{author}}</td> <td>{{category}}</td> <td></td> <td></td> <td>{{created}}</td>
-  <td><img src="/img/remove.png" class="deleteicon" /> 
-  <a href="edit?id={{_id}}"><img src="/img/edit.png" class="editicon" /> </td> </tr>
+  <tr>
+  <td>
+    <a href="edit?id={{_id}}"><img src="/img/edit.png" class="editicon" /></a> 
+    | <img src="/img/remove.png" id="{{_id}}" class="deleteicon" />
+  </td> 
+
+  <td>{{title}}</td> 
+  <td>{{#active}}Published{{/active}} {{^active}}Draft{{/active}}</td> 
+  <td>{{author}}</td> <td>{{category}}</td> <!--<td></td> <td></td>--> <td>{{created}}</td> </tr>
 {{/posts}}
 </table>
 

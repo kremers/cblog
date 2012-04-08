@@ -64,23 +64,23 @@ $(document).ready(function() {
 <div id="postcontainer" style="position: relative; float: left;">
   {{#post._id}}<input name="postid" type="hidden" value="{{post._id}}" />{{/post._id}}
   <label class="hide-if-no-js" style="" id="title-prompt-text" for="title">Enter title here</label>
-  <input type="text" name="title" size="30" tabindex="1" id="title" autocomplete="off" value="{{post.title}}"> <br />
-  <textarea id="textarea" name="content" cols="35" rows="20">{{post.content}}</textarea>
+  <input type="text" name="title" size="30" tabindex="1" id="title" autocomplete="off" value="{{post.title}}" tabindex="1"> <br />
+  <textarea id="textarea" name="content" cols="35" rows="20" tabindex="2">{{post.content}}</textarea>
 </div>
 
 <div id="submitbuttons" class="uiwidget">
   <h3>Publish</h3>
   <div style="text-align:center;">
-    <input type="button" name="preview" id="preview" value="Preview"   class="actionbutton" /> <br />
-    <input type="submit" name="save" id="save-post" value="Save Draft" class="actionbutton" /> <br />
-    <input type="submit" name="save" id="save"      value="Save"       class="actionbutton" /> <br />
+    <input type="button" name="preview" id="preview" value="Preview"   class="actionbutton" tabindex="4" /> <br />
+    <input type="submit" name="save" id="save-post" value="Save Draft" class="actionbutton" tabindex="5" /> <br />
+    <input type="submit" name="save" id="save"      value="Save"       class="actionbutton" tabindex="6"/> <br />
   </div>
 </div>
 
 <div id="choosecategorybox" class="uiwidget">
   <h3>Category</h3>
   <div style="text-align:center;">
-  <select name="category" class="actionbutton">
+  <select name="category" class="actionbutton" tabindex="3">
 {{#categories}}  
     <option value="{{name}}" {{#selected}} selected="selected" {{/selected}}>{{name}}</option>
 {{/categories}}

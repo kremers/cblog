@@ -19,6 +19,7 @@
     (GET  "/admin/posts" [] (redirect "/admin/posts/"))
     (GET  "/admin/posts/" [] (envelope (render-file "templates/admin_posts" (posts-overview))))
     (GET  "/admin/posts/edit" {params :params} (envelope (render-file "templates/admin_editpost" (prepare-edit params))))
+    (POST "/admin/posts/remove" request (utf8response (remove-post request)))
     (POST "/admin/posts/save" {params :params} (envelope (save-post params)))
     (ANY  "*" [] (utf8response (make-404)))
 )
