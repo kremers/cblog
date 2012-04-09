@@ -28,9 +28,17 @@
   {:categories categories} ))
 )
 
-(defn categories-overview [] {:categories (vec (find-maps "categories"))})
-(defn remove-category [req] (generate-string {:result (str (remove-by-id "categories" (ObjectId. (:id (json-in req)))))}))
-(defn save-category [req] (generate-string {:result (str (let [data (json-in req)] (insert "categories" (+category {:name (:name data) :urlfriendly (:urlfriendly data)}))))}))
+(defn categories-overview [] 
+  {:categories (vec (find-maps "categories"))})
+(defn remove-category [req] 
+  (generate-string {:result (str (remove-by-id "categories" (ObjectId. (:id (json-in req)))))}))
+(defn save-category [req] 
+  (generate-string {:result (str (let [data (json-in req)] (insert "categories" (+category {:name (:name data) :urlfriendly (:urlfriendly data)}))))}))
 
+(defn update-category [req] 
+  (generate-string {:result (str (let [data (json-in req) 
+                                       id (:id data) 
+                                       category (+category {:name (:name data) :urlfriendly (:urlfriendly data)})] 
+                                   (update-by-id "categories" (ObjectId. id) category)))}))
 
 

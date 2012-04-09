@@ -1,14 +1,15 @@
 <script type="text/javascript">
  $(document).ready(function() {
 $(".deleteicon").click(function() {
-                        var content = JSON.stringify({id: this.id}, null, 2);
+  			var oid = this.id.split("_")[1];
+                        var content = JSON.stringify({id: (oid)}, null, 2);
                         if(!confirm("sure?")) return;
                         $.ajax({ type: 'POST', contentType: 'application/json', url: 'remove', data: content, processData: false, dataType: 'json',
-                               success: function(data) {location.reload(true);}});
+                               success: function(data) { $("#"+oid).remove();  }});
                 });
 
 $('#name_txt').focus();
-$('#name_txt').keydown(function(e) { /* 13 = return key */if( e.keyCode === 13) { $("#saveTaskButton").trigger('click'); }});
+$('#name_txt').keydown(function(e) { /* 13 = return key */if( e.keyCode === 13) { $("#saveButton").trigger('click'); }});
 $('#add').submit(function() {return false;});
 
  $('#saveButton').click(function() { var content = JSON.stringify({name: $("#name_txt").val()}, null, 2);
@@ -22,8 +23,30 @@ $('#add').submit(function() {return false;});
                        dataType: 'json'
                     });
                     });
+
+$('.editicon').click(function() {
+  var oid = this.id.split("_")[1];
+  if($(this).attr("src") == "/img/edit.png") {
+  var txt_name = $("#name_"+oid).text(); var txt_urlfriend = $("#urlfriend_"+oid).text();
+   $("#name_"+oid).replaceWith('<td id="name_'+oid+'"><input type="text" value="'+txt_name+'" /></td>');
+   $("#urlfriend_"+oid).replaceWith('<td id="urlfriend_'+oid+'"><input type="text" value="'+txt_urlfriend+'" /></td>');
+   this.src = "/img/ok.png"
+  } else if ($(this).attr("src") == "/img/ok.png") {
+   var new_name = $("#name_"+oid).find("input[type=text]").val();
+   var new_url =  $("#urlfriend_"+oid).find("input[type=text]").val();
+   this.src = "/img/spinner.gif";
+   var content =  JSON.stringify( {id: oid, name: new_name, urlfriendly: new_url} );
+   var logo = this;
+   $.ajax({ type: 'POST', contentType: 'application/json', url: 'update', data: content, success: function(data) {
+      logo.src = "/img/edit.png";
+      $("#name_"+oid).replaceWith('<td id="name_'+oid+'">'+new_name+'</td>');
+      $("#urlfriend_"+oid).replaceWith('<td id="urlfriend_'+oid+'">'+new_url+'</td>');
+   }, processData: false, dataType: 'json' });  
+
+}
 });
-</script>
+
+});</script>
 
 <h2>Categories</h2>
 
@@ -33,16 +56,16 @@ $('#add').submit(function() {return false;});
  </div>
 <br />
 <div id="categorytable">
-<table width="100%">
+<table width="100%" id="categoryOverview">
   <tr> <th></th> <th>Name</th> <th>URL - Friendly</th></tr>
 {{#categories}}
-  <tr>
+  <tr id="{{_id}}">
   <td>
-    <a href="#"><img id="{{_id}}" src="/img/edit.png" class="editicon" /></a>
-    | <img src="/img/remove.png" id="{{_id}}" class="deleteicon" />
+    <a href="#"><img id="edit_{{_id}}" src="/img/edit.png" class="editicon" /></a>
+    | <img src="/img/remove.png" id="remove_{{_id}}" class="deleteicon" />
   </td>
-  <td>{{name}}</td>
-  <td>{{urlfriendly}} - </td>
+  <td id="name_{{_id}}">{{name}}</td>
+  <td id="urlfriend_{{_id}}">{{urlfriendly}}</td>
 {{/categories}}
 </table>
 </div>

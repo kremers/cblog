@@ -15,7 +15,7 @@
 (defn +category [& [init]] 
   (merge {:name nil :urlfriendly nil :lastmodified (gen-timestamp)} init))
 (defn +settings [& [init]] 
-  (merge {:blogtitle "c(lojure) blog" :timezone nil :version 0} init))
+  (merge {:blogtitle "c(lojure) blog" :timezone nil :version 0 :askimetapikey nil} init))
 
 (defn valid-user? [user] (let [v (validation-set (presence-of :login) (presence-of :pass)) ] (valid? v user)))
 ;(defn wpautop [text] (str "<p>" (clojure.string/replace text #"(\r\n){2}" "</p><p>" ) "</p>"))

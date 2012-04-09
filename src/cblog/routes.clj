@@ -25,6 +25,7 @@
     (GET  "/admin/categories/" [] (envelope (render-file "templates/admin_categories" (categories-overview))))
     (POST "/admin/categories/save" request (utf8response (save-category request)))
     (POST "/admin/categories/remove" request (utf8response (remove-category request)))
+    (POST "/admin/categories/update" request (utf8response (update-category request)))
     (GET  "/admin/bootstrap" [] (do (bootstrap-database) (utf8response "bootstraped! See log for details.")))
     (ANY  "*" [] (utf8response (make-404)))
 )
