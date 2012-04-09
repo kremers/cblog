@@ -9,7 +9,7 @@
         #"/logout.*"                  :any
         #"/index.html"                :any
         #"/"                          :any
-        #".*"                         #{:admin :user}])
+        #".*"                         :any])
 
 (defrecord DemoAdapter [] 
     FormAuthAdapter

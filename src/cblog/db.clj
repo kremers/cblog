@@ -27,6 +27,9 @@
 (defn posts-by-category [category] 
   (reverse (sort-by :created (for [x (find-maps "posts" {:category category :active true})] (update-in x [:content] post-postprocess)))))
 
+(defn posts-by-urlfriendly-category [urlfriendly] (let [category (:name (find-one-as-map "categories" {:urlfriendly urlfriendly}))] (posts-by-category category)))
+
+
 (defn all-categories []  
   (find-maps "categories"))
 

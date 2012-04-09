@@ -12,11 +12,14 @@ Next todos:
 * <del>Simple functionality to add crud posts</del>
 * <del>Defensive bootstrap of database with default categories, settings and users</del>
 * <del>CRUD for categories</del>
-* Routes to view categories and posts by /:category/:post
-* HideTitle Option for posts
-* Settings section (configure blog name, admin password, ...)
+* <del>Categories with URLfriendly name</del>
+* <del>Routes to view categories and posts by /:category</del> and /:category/:post
 * <del>AdminUI, Output and Selection for categories</del>
+* HideTitle Option for posts
+* Automatic (client side) generation of URLfriendly name
+* Settings section (configure blog name, admin password, ...)
 * S3 connection and binary data upload
+* Make it possible to hide categories for pseudocats (blogroll, show-all, ...)
 
 Later:
 
@@ -24,14 +27,9 @@ Later:
 * Media Section
 * User Management
 * Enhance AdminUI with more ajax feeling & (Web-)design changes
-* Tag Cloud
-
-Planned Features:
-
-* Search Machine friendly URLs
-* Posts (Pictures, Videos), Tags, Categories
+* Tags & Tag Cloud
 * Comments, Askimet Integration
-* ATOM, RSS feeds
+* RSS and ATOM feed
 
 Why just another blog?
 
