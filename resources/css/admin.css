@@ -1,0 +1,118 @@
+form fieldset
+{
+	border-color:#000;
+	border-style:solid none none;
+	border-width:1px 0 0;
+	clear:both;
+	font-size:1em;
+	margin:0;
+	padding:10px;
+}
+
+form fieldset legend
+{
+	color:#000;
+	font-size:1.3em;
+	font-weight:700;
+	margin:0;
+	padding:0 5px;
+}
+
+.textlabel
+{
+	color:grey;
+	display:block;
+	float:left;
+	font-weight:700;
+	margin:0 0 5px;
+	padding:3px 5px;
+	text-align:right;
+	width:150px;
+}
+
+.uiwidget
+{
+	background-color:#F7FCFE;
+	border-color:#D1E5EE;
+	border-radius:3px;
+	border-style:solid;
+	border-width:1px;
+	float:right;
+	margin:5px;
+	padding:5px;
+	position:relative;
+	width:150px;
+}
+
+.uiwidget h3
+{
+	color:#174F69;
+	font-size:15px;
+	line-height:1;
+	margin:0;
+	padding:7px 10px;
+	text-align:center;
+}
+
+.actionbutton
+{
+	-moz-box-sizing:content-box;
+	-webkit-border-radius:5px;
+	-webkit-box-sizing:content-box;
+	border-color:#BBB;
+	border-radius:5px;
+	border-style:solid;
+	border-width:1px;
+	box-sizing:content-box;
+	color:#464646;
+	cursor:pointer;
+	font-size:12px!important;
+	font-weight:700;
+	line-height:13px;
+	padding:3px 8px;
+	text-decoration:none;
+	width:100px;
+}
+
+input,textarea
+{
+	-webkit-border-radius:3px;
+	-webkit-box-sizing:border-box;
+	border-color:#BDCCD5;
+	border-radius:3px;
+	border-style:solid;
+	border-width:1px;
+	box-sizing:border-box;
+	color:grey;
+}
+
+.checkboxlabel
+{
+	color:#464646;
+	font-weight:700;
+}
+
+#title-prompt-text
+{
+	color:#BBB;
+	font-size:1.4em;
+	padding:8px 10px;
+	position:absolute;
+}
+
+#title
+{
+	font-size:1.7em;
+	line-height:100%;
+	outline:none;
+	padding:3px 8px;
+	width:100%;
+}
+
+#textarea
+{
+	line-height:100%;
+	outline:none;
+	padding:3px 8px;
+	width:100%;
+}

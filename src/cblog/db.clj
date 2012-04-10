@@ -51,7 +51,10 @@
        welcome-exists  (exists? "categories" {:name "Welcome"})
        post-exists     (exists? "posts" {:category "Welcome"})
        settings-exists (exists? "settings" {:version 0})] 
-   (dorun (map #(info (str (key %) (val %))) {"exists(admin): " admin-exists "exists(welcome): " welcome-exists "exists(firstpost): " post-exists}))
+   (dorun (map #(info (str (key %) (val %))) {"exists(admin): " admin-exists 
+                                              "exists(welcome): " welcome-exists 
+                                              "exists(firstpost): " post-exists
+                                              "exists(settings): " settings-exists}))
    (if (not admin-exists)   (do (info "init users") 
                               (insert "users" (+user {:login "admin" 
                                                       :pass "admin" 

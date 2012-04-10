@@ -1,8 +1,12 @@
 (ns cblog.admin (:import [org.bson.types ObjectId]) 
-  (:use [cblog db util] [cheshire.core] [sandbar.auth] [monger.collection :only [find-maps remove-by-id update-by-id find-map-by-id find-one-as-map insert]]
+  (:use [cblog db util] [cheshire.core] [sandbar.auth] 
+        [monger.collection :only [find-maps update remove-by-id update-by-id find-map-by-id find-one-as-map insert]]
                       [monger.operators] [clojure.tools.logging :only (info error)]))
 
-(defn settings-overview [] {:settings (find-map-by-id "settings" {:version 0})})
+(defn settings-overview [] (find-one-as-map "settings" {:version 0}))
+
+(defn update-settings [req] (let [p (json-in req) k (:key p) v (:value p) old (settings-overview)] 
+    (if (contains? (+settings) (keyword k)) (:err (update "settings" {:version 0} (merge old {(keyword k) v}))) "key not available")) )
 
 (defn posts-overview [] 
   (let [posts (vec (find-maps "posts")) 

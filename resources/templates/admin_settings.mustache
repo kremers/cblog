@@ -1,16 +1,58 @@
+<script type="text/javascript">
+ $(document).ready(function() {
+$('input[type=text]').change(function() {
+ var key = $(this).attr("name"); var value = this.value;
+ var content = JSON.stringify({key: key, value: value}, null, 2);
+  var parent = $(this).parent();
+  parent.append('<img src="/img/spinner.gif" />');
+  $.ajax({ type: 'POST', contentType: 'application/json', url: 'settings/updatepartial', data: content,
+  success: function(data) { if(data == null) { parent.find('img').hide(); } }, processData: false, dataType: 'json'});
+ });
+});
+</script>
 
+<form>
+<div id="generalsettings">
+<fieldset>
+<legend>General Settings</legend>
+<ul>
+<li style="list-style:none;">
+  <label class="textlabel" for="blogtitle">Title of the blog</label>
+  <input id="blogtitle" name="blogtitle" type="text" value="{{blogtitle}}" />
+  <!--<img src="/img/spinner.gif" />-->
+</li>
+<li style="list-style:none;">
+  <label class="textlabel" for="metadesc">Meta - description</label>
+  <input id="metadesc" name="metadesc" type="text" value="{{metadesc}}" />
+</li>
+<li style="list-style:none;">
+  <label class="textlabel" for="metakeywords">Meta - keywords</label>
+  <input id="metakeywords" name="metakeywords" type="text" value="{{metakeywords}}" />
+</li>
+<li style="list-style:none;">
+  <label class="textlabel" for="metaauthor">Meta - Author</label>
+  <input id="metaauthor" name="metaauthor" type="text" value="{{metaauthor}}" />
+</li>
+</ul>
+</fieldset>
+</div>
 
-General Settings
-Title of the blog  
-Meta - description
-Meta - keywords   
-Meta - Author     
-
-API Integration
-Askimet API Key
-Google Analytics API Key
-
-
+<div id="apiintegrations">
+<fieldset>
+<legend>API Integration</legend>
+<ul>
+<li style="list-style:none;">
+  <label class="textlabel" for="askimetapikey">Askimet API Key</label>
+  <input name="askimetapikey" type="text" value="{{askimetapikey}}" />
+</li>
+<li style="list-style:none;">
+  <label class="textlabel" for="analyticsaccountkey">Google Analytics API Key</label>
+  <input name="analyticsaccountkey" type="text" value="{{analyticsaccountkey}}" />
+</li>
+</ul>
+</fieldset>
+</div>
+</form>
 
 
 

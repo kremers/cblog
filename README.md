@@ -16,8 +16,8 @@ Next todos:
 * <del>Routes to view categories and posts by /:category</del> and /:category/:post
 * <del>AdminUI, Output and Selection for categories</del>
 * <del>HideTitle Option for posts</del>
+* <del>Settings section (configure blog name, admin password, ...)</del>
 * Automatic (client side) generation of URLfriendly name
-* Settings section (configure blog name, admin password, ...)
 * S3 connection and binary data upload
 * Make it possible to hide categories for pseudocats (blogroll, show-all, ...)
 
