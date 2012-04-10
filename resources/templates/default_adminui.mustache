@@ -40,35 +40,21 @@
       <div style="clear:both;"></div>
 
       <div id="tagline" style="height:4px; width:945px;" ></div>
-
+ 
+    <div id="middleOfPage" style="width:100%;">
       <div id="content">
         <div id="l_sidebar">
 	  <ul id="l_sidebarwidgeted">
 	    <li id="recent-posts-3" class="widget widget_recent_entries"> 
-	    <h2 class="widgettitle">Recent Posts</h2>
-	    {{#recentposts}}
-	    <li><a href="{{category}}/{{title}}" title="{{title}}">{{title}}</a></li>
-	    {{/recentposts}}
-	    </li></ul>
-
-	    <li id="linkcat-2" class="widget widget_links" style="list-style: none;"><h2 class="widgettitle">Blogroll</h2>
-	    	<ul class="xoxo blogroll">
-			<li><a href="http://xkcd.com/">XKCD</a></li>
-		</ul>
+	    {{{adminmenue}}}
 	    </li>
-  </div>
+      </div>
 
-  <div id="contentleft">
+      <div id="contentleft" style="width:78%; padding: 0px;">
 	  <!-- Main content goes here -->
 	   {{{capsule}}}
-  </div>
+      </div>
+   </div>
 
-  <div id="r_sidebar">
-    <ul id="r_sidebarwidgeted">
-      <li id="tag_cloud-2" class="widget widget_tag_cloud"><h2 class="widgettitle">Tags</h2>
-      <div class="tagcloud"> </div>
-      </li>
-    </ul>
-  </div>
 </div>
 </html>

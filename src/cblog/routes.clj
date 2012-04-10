@@ -10,19 +10,23 @@
 
 
 (defn envelope [content] (utf8response (render-file "templates/default"  (merge {:capsule content} (basicinfo)))))
+(defn adminui  [content] (utf8response (render-file "templates/default_adminui" 
+                             (merge {:capsule content} 
+                                    (basicinfo) 
+                                    {:adminmenue (render-file "templates/adminmenue" nil)}))))
 
 (defroutes my-routes 
     (form-authentication-routes (fn [_ c] (layout c)) (form-authentication-adapter))
     (GET  "/" [] (envelope (render-file "templates/main" {:posts (vec (posts-by-category "Welcome"))}) ))
     (GET  "/admin" [] (redirect "/admin/"))
-    (GET  "/admin/" [] (envelope (render-file "templates/admin" nil)))
+    (GET  "/admin/" [] (adminui (render-file "templates/admin" nil)))
     (GET  "/admin/posts" [] (redirect "/admin/posts/"))
-    (GET  "/admin/posts/" [] (envelope (render-file "templates/admin_posts" (posts-overview))))
-    (GET  "/admin/posts/edit" {params :params} (envelope (render-file "templates/admin_editpost" (prepare-edit params))))
+    (GET  "/admin/posts/" [] (adminui (render-file "templates/admin_posts" (posts-overview))))
+    (GET  "/admin/posts/edit" {params :params} (adminui (render-file "templates/admin_editpost" (prepare-edit params))))
     (POST "/admin/posts/remove" request (utf8response (remove-post request)))
-    (POST "/admin/posts/save" {params :params} (envelope (save-post params)))
+    (POST "/admin/posts/save" {params :params} (adminui (save-post params)))
     (GET  "/admin/categories" [] (redirect "/admin/categories/"))
-    (GET  "/admin/categories/" [] (envelope (render-file "templates/admin_categories" (categories-overview))))
+    (GET  "/admin/categories/" [] (adminui (render-file "templates/admin_categories" (categories-overview))))
     (POST "/admin/categories/save" request (utf8response (save-category request)))
     (POST "/admin/categories/remove" request (utf8response (remove-category request)))
     (POST "/admin/categories/update" request (utf8response (update-category request)))

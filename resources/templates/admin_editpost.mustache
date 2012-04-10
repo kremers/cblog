@@ -41,27 +41,29 @@ padding: 8px 10px;
 font-size: 1.7em;
 line-height: 100%;
 outline: none;
-width:300px;
+width:100%;
 }
 
 #textarea {
  padding: 3px 8px;
 line-height: 100%;
 outline: none;
-width:300px;
+width:100%;
 }
 </style>
-
+ <script type="text/javascript" src="/js/nicEdit.js"></script>
 <script type="text/javascript">
 $(document).ready(function() {
  if($("#title").val() != "") $("#title-prompt-text").hide();
  $("#title").focus(function(e) { $("#title-prompt-text").hide()   } );
  $("#title").blur(function() { if($(this).val() == "") $("#title-prompt-text").show();  } );
+ var editor = new nicEditor({iconsPath: '/js/nicEditorIcons.gif'});
+ editor.panelInstance('textarea');
 });
 </script>
 
 <form action="save" method="post">
-<div id="postcontainer" style="position: relative; float: left;">
+<div id="postcontainer" style="position: relative; float: left; width:550px;">
   {{#post._id}}<input name="postid" type="hidden" value="{{post._id}}" />{{/post._id}}
   <label class="hide-if-no-js" style="" id="title-prompt-text" for="title">Enter title here</label>
   <input type="text" name="title" size="30" tabindex="1" id="title" autocomplete="off" value="{{post.title}}" tabindex="1"> <br />
