@@ -2,6 +2,8 @@
   (:use [cblog db util] [cheshire.core] [sandbar.auth] [monger.collection :only [find-maps remove-by-id update-by-id find-map-by-id find-one-as-map insert]]
                       [monger.operators] [clojure.tools.logging :only (info error)]))
 
+(defn settings-overview [] {:settings (find-map-by-id "settings" {:version 0})})
+
 (defn posts-overview [] 
   (let [posts (vec (find-maps "posts")) 
         sum (count posts)
@@ -15,6 +17,7 @@
                          :author (current-username)
                          :category (params "category")
                          :content (params "content")
+                         :showtitle (= "on" (params "showtitle"))
                          :active (not draft?)})]  
   (if-let [id (params "postid")] (update-by-id "posts" (ObjectId. id) post) (insert "posts" post))))
 

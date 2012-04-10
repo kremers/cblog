@@ -31,6 +31,7 @@
     (POST "/admin/categories/remove" request (utf8response (remove-category request)))
     (POST "/admin/categories/update" request (utf8response (update-category request)))
     (GET  "/admin/bootstrap" [] (do (bootstrap-database) (utf8response "bootstraped! See log for details.")))
+    (GET  "/admin/settings" [] (adminui (render-file "templates/admin_settings" (settings-overview))))
     (GET  "/:category" [category]  (envelope (render-file "templates/main" {:posts (vec (posts-by-urlfriendly-category category))})))
     (ANY  "*" [] (utf8response (make-404)))
 )

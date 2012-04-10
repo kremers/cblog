@@ -15,7 +15,7 @@ Next todos:
 * <del>Categories with URLfriendly name</del>
 * <del>Routes to view categories and posts by /:category</del> and /:category/:post
 * <del>AdminUI, Output and Selection for categories</del>
-* HideTitle Option for posts
+* <del>HideTitle Option for posts</del>
 * Automatic (client side) generation of URLfriendly name
 * Settings section (configure blog name, admin password, ...)
 * S3 connection and binary data upload
