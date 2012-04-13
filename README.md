@@ -17,30 +17,26 @@ Next todos:
 * <del>AdminUI, Output and Selection for categories</del>
 * <del>HideTitle Option for posts</del>
 * <del>Settings section (configure blog name, admin password, ...)</del>
+* <del>Enhance AdminUI with more ajax feeling & (Web-)design changes</del>
+* Fix broken build (heroku and 'local runnable' app - see core.clj)
+* Fix broken links from adminui
+* Fix broken links "recent posts"
 * Automatic (client side) generation of URLfriendly name
-* S3 connection and binary data upload
-* Make it possible to hide categories for pseudocats (blogroll, show-all, ...)
-
-Later:
-
+* Change password functionality - settings page
+* S3 connection and binary data upload & Media Section
 * Write the persistent user sessions to mongodb, currently existing frameworks do not work with monger and clojure 1.3. Fork and refactor them
-* Media Section
-* User Management
-* Enhance AdminUI with more ajax feeling & (Web-)design changes
+* RSS and ATOM feed (RSS & Atom templates for mustache are available)
+* Configurable Blogroll
 * Tags & Tag Cloud
 * Comments, Askimet Integration
-* RSS and ATOM feed
-
-Why just another blog?
-
-* Maybe my wordpress instance is going offline (server not longer available) in a few days or month
-* Building reference projects for clojure
-* Run it on Heroku & S3
+* Move this page to a todo page and write instructions how to install this blog
 
 Tech goal:
 
+* Building reference projects for clojure
 * High scalable
 * No data stored on application servers
+* Run it on Heroku & S3
 * Optional caching with memcached
 * Binary data in S3, other data in MongoDB (sessions, posts, ...)
 * "Reference" building for a clojure web stacks

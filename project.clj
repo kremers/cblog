@@ -14,7 +14,7 @@
                  [stencil "0.2.0"]
                  [com.novemberain/monger "1.0.0-SNAPSHOT"]
                  [kremers/sandbar "0.4.0-SNAPSHOT"]
-                 ;[com.novemberain/validateur "1.1.0-beta1"]
+                 [clj-aws-s3 "0.3.0"]
                  ]
    :main cblog.core
    :source-path "src"
