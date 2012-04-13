@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0">
+  <channel>
+    {{#Feed}}
+      <title>{{Title}}</title>
+      <description>{{Description}}</description>
+      <link>{{Link}}</link>
+      <language>{{Language}}</language>
+      <copyright>{{CopyrightInfo}}</copyright>
+      <pubDate>{{PubDate}}</pubDate>
+      <lastBuildDate>{{LastBuildDate}}</lastBuildDate>
+
+      {{#Items}}
+        <item>
+          <title>{{Title}}</title>
+          <description>{{Summary}}</description>
+          <link>{{Link}}</link>
+          <guid>{{Link}}</guid>
+          <pubDate>{{PubDate}}</pubDate>
+        </item>
+      {{/Items}}
+    {{/Feed}}
+  </channel>
+</rss>

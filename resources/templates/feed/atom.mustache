@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns='http://www.w3.org/2005/Atom' xmlns:g='http://base.google.com/ns/1.0'>
+  {{#Feed}}
+    <title>{{Title}}</title>
+    {{#Subtitle}}<subtitle>{{Subtitle}}</subtitle>{{/Subtitle}}
+    <updated>{{PubDate}}</updated>
+    <author><name>{{Author}}</name></author>
+    <id>{{Link}}</id>
+    <link rel='self' href='{{Link}}'/>
+
+    {{#Items}}
+      <entry>
+        <title>{{Title}}</title>
+        <id>{{Link}}</id>
+        <link href='{{Link}}'/>
+        <published>{{PubDate}}</published>
+        <updated>{{PubDate}}</updated>
+        {{#Summary}}
+          <summary>
+            {{Summary}}
+          </summary>
+        {{/Summary}}
+
+        {{#Content}}
+          <content type="html">
+            <![CDATA[
+            {{{Content}}}
+            ]]>
+          </content>
+        {{/Content}}
+      </entry>
+    {{/Items}}
+  {{/Feed}}
+</feed>

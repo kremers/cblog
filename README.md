@@ -30,6 +30,7 @@ Next todos:
 * Tags & Tag Cloud
 * Comments, Askimet Integration
 * Move this page to a todo page and write instructions how to install this blog
+* Print application health on admin welcome page.  Runtime/getRuntime ... 
 
 Tech goal:
 
