@@ -1,6 +1,6 @@
 <script type="text/javascript">
  $(document).ready(function() {
-$('input[type=text]').change(function() {
+$('.autosaveme').change(function() {
  var key = $(this).attr("name"); var value = this.value;
  var content = JSON.stringify({key: key, value: value}, null, 2);
   var parent = $(this).parent();
@@ -8,9 +8,20 @@ $('input[type=text]').change(function() {
   $.ajax({ type: 'POST', contentType: 'application/json', url: 'settings/updatepartial', data: content,
   success: function(data) { if(data == null) { parent.find('img').hide(); } }, processData: false, dataType: 'json'});
  });
+
+$('.changeadminpwsure').change(function() {
+  if($('.changeadminpw').attr("value") === this.value && this.value.length >= 8) {
+  var parent = $(this).parent();
+  parent.append('<img src="/img/spinner.gif" />');
+  var content = JSON.stringify({newpw: this.value}, null, 2);
+  $.ajax({ type: 'POST', contentType: 'application/json', url: 'settings/adminpwchange', data: content,
+  success: function(data) { if(data == null) { var img = parent.find('img'); img.attr("src","/img/ok.png"); img.fadeOut(1000);  } }, processData: false, dataType: 'json'});
+  } else { alert('passwords do not match or length(pw) < 8'); } 
+});
+
 });
 </script>
-
+<br />
 <form>
 <div id="generalsettings">
 <fieldset>
@@ -18,24 +29,39 @@ $('input[type=text]').change(function() {
 <ul>
 <li style="list-style:none;">
   <label class="textlabel" for="blogtitle">Title of the blog</label>
-  <input id="blogtitle" name="blogtitle" type="text" value="{{blogtitle}}" />
+  <input class="autosaveme" id="blogtitle" name="blogtitle" type="text" value="{{blogtitle}}" />
   <!--<img src="/img/spinner.gif" />-->
 </li>
 <li style="list-style:none;">
   <label class="textlabel" for="metadesc">Meta - description</label>
-  <input id="metadesc" name="metadesc" type="text" value="{{metadesc}}" />
+  <input class="autosaveme" id="metadesc" name="metadesc" type="text" value="{{metadesc}}" />
 </li>
 <li style="list-style:none;">
   <label class="textlabel" for="metakeywords">Meta - keywords</label>
-  <input id="metakeywords" name="metakeywords" type="text" value="{{metakeywords}}" />
+  <input class="autosaveme" id="metakeywords" name="metakeywords" type="text" value="{{metakeywords}}" />
 </li>
 <li style="list-style:none;">
   <label class="textlabel" for="metaauthor">Meta - Author</label>
-  <input id="metaauthor" name="metaauthor" type="text" value="{{metaauthor}}" />
+  <input class="autosaveme" id="metaauthor" name="metaauthor" type="text" value="{{metaauthor}}" />
 </li>
 </ul>
 </fieldset>
 </div>
+
+<div id="generalsettings">
+<fieldset>
+<legend>Administrator Login</legend>
+<ul>
+  <li style="list-style:none;">
+    <label class="textlabel" for="adminpassword">New admin password</label>
+    <input class="changeadminpw" id="adminpassword" name="adminpassword" type="password" value="" />
+  </li>
+  <li style="list-style:none;">
+    <label class="textlabel" for="doublecheckedadminpassword">Doublecheck password</label>
+    <input class="changeadminpwsure" id="doublecheckedadminpassword" name="doublecheckedadminpassword" type="password" value="" />
+  </li>
+</ul>
+</fieldset>
 
 <div id="apiintegrations">
 <fieldset>
@@ -43,19 +69,19 @@ $('input[type=text]').change(function() {
 <ul>
 <li style="list-style:none;">
   <label class="textlabel" for="askimetapikey">Askimet API Key</label>
-  <input name="askimetapikey" type="text" value="{{askimetapikey}}" />
+  <input class="autosaveme" name="askimetapikey" type="text" value="{{askimetapikey}}" />
 </li>
 <li style="list-style:none;">
   <label class="textlabel" for="analyticsaccountkey">Google Analytics API Key</label>
-  <input name="analyticsaccountkey" type="text" value="{{analyticsaccountkey}}" />
+  <input class="autosaveme" name="analyticsaccountkey" type="text" value="{{analyticsaccountkey}}" />
 </li>
 <li style="list-style:none;">
-  <label class="textlabel" for="analyticsaccountkey">Amazon S3 API Access Key</label>
-  <input name="s3-access-key" type="text" value="{{analyticsaccountkey}}" />
+  <label class="textlabel" for="s3-access-key">S3 API Access Key</label>
+  <input class="autosaveme" name="s3-access-key" type="text" value="{{analyticsaccountkey}}" />
 </li>
 <li style="list-style:none;">
-  <label class="textlabel" for="analyticsaccountkey">Amazon S3 API Secret Key</label>
-  <input name="s3-secret-key" type="text" value="{{analyticsaccountkey}}" />
+  <label class="textlabel" for="s3-secret-key">S3 API Secret Key</label>
+  <input class="autosaveme" name="s3-secret-key" type="text" value="{{analyticsaccountkey}}" />
 </li>
 </ul>
 </fieldset>

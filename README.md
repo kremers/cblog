@@ -18,11 +18,11 @@ Next todos:
 * <del>HideTitle Option for posts</del>
 * <del>Settings section (configure blog name, admin password, ...)</del>
 * <del>Enhance AdminUI with more ajax feeling & (Web-)design changes</del>
-* Fix broken build (heroku and 'local runnable' app - see core.clj)
-* Fix broken links from adminui
+* <del>Fix broken build (heroku and 'local runnable' app - see core.clj)</del>
+* <del>Fix broken links from adminui</del>
+* <del>Change password functionality - settings page</del>
 * Fix broken links "recent posts"
-* Automatic (client side) generation of URLfriendly name
-* Change password functionality - settings page
+* <del>Automatic (client side) generation of URLfriendly name</del>
 * S3 connection and binary data upload & Media Section
 * Write the persistent user sessions to mongodb, currently existing frameworks do not work with monger and clojure 1.3. Fork and refactor them
 * RSS and ATOM feed (RSS & Atom templates for mustache are available)

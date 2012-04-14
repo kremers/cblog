@@ -8,6 +8,16 @@
 (defn update-settings [req] (let [p (json-in req) k (:key p) v (:value p) old (settings-overview)] 
     (if (contains? (+settings) (keyword k)) (:err (update "settings" {:version 0} (merge old {(keyword k) v}))) "key not available")) )
 
+(defn update-adminpw [req] (when-let [isAdmin (= (current-username) "admin")] 
+                             (:err (let [p (json-in req) k (:newpw p) oldAdmin (find-one-as-map "users" {:login "admin"})] 
+                               (update "users" {:login "admin"} (merge oldAdmin {:pass k}))))))
+
+(defn admin-health [] (generate-string (let [^Runtime r (Runtime/getRuntime)] 
+                        { :freememory (int (/ (. r (freeMemory)) 1e6))
+                          :totalmemory (int (/ (. r (totalMemory)) 1e6)) 
+                          :maxmemory (int (/ (. r (maxMemory)) 1e6))
+                          :processors (int (. r (availableProcessors))) })))
+
 (defn posts-overview [] 
   (let [posts (vec (find-maps "posts")) 
         sum (count posts)

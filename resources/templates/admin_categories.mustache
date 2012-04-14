@@ -12,7 +12,11 @@ $('#name_txt').focus();
 $('#name_txt').keydown(function(e) { /* 13 = return key */if( e.keyCode === 13) { $("#saveButton").trigger('click'); }});
 $('#add').submit(function() {return false;});
 
- $('#saveButton').click(function() { var content = JSON.stringify({name: $("#name_txt").val()}, null, 2);
+ $('#saveButton').click(function() {
+ var nameval =  $("#name_txt").val();
+ var pretty = nameval.toLowerCase().replace(/[^A-Za-z0-9_]+/g,"-").replace(/^-\s*/, '').replace(/\s*-$/, '');
+ alert(pretty);
+ var content = JSON.stringify({name: nameval, urlfriendly: pretty}, null, 2);
                     $.ajax({
                        type: 'POST',
                        contentType: 'application/json',

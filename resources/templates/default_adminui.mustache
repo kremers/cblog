@@ -26,14 +26,14 @@
 	<div id="headerright">
 		<ul> 
 			{{#headercategories}}
-			<li class="page_item"><a href="{{urlfriendly}}">{{name}}</a></li>
+			<li class="page_item"><a href="/{{urlfriendly}}">{{name}}</a></li>
 			{{/headercategories}}
 		</ul>
 	</div>
 	<div id="headerbottom">
 	  {{#username}}
 	  <div id="credentialinfo" style="font-size:7pt; float:right; padding-right:10px;">
-		  You are logged in as <b>{{username}}</b>, <a style="font-size:7pt;" href="logout">Logout</a> 
+		  You are logged in as <b>{{username}}</b>, <a style="font-size:7pt;" href="/logout">Logout</a> 
 	  </div>
           {{/username}}
 	</div>

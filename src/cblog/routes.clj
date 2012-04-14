@@ -33,6 +33,8 @@
     (GET  "/admin/bootstrap" [] (do (bootstrap-database) (utf8response "bootstraped! See log for details.")))
     (GET  "/admin/settings" [] (adminui (render-file "templates/admin_settings" (settings-overview))))
     (POST "/admin/settings/updatepartial" request (utf8response (update-settings request)))
+    (POST "/admin/settings/adminpwchange" request (utf8response (update-adminpw  request)))
+    (GET  "/admin/health" [] (jsonresp (admin-health)))
     (GET  "/:category" [category]  (envelope (render-file "templates/main" {:posts (vec (posts-by-urlfriendly-category category))})))
     (ANY  "*" [] (utf8response (make-404)))
 )
