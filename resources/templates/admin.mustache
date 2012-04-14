@@ -1,1 +1,18 @@
+<script type="text/javascript">
+ $(document).ready(function() {
+ var h = $('#health');
+ h.append('<img src="/img/spinner.gif" />');
+ $.get('health', function(data) {
+  h.find('img').hide();
+  h.append("<h3>Ressource Overview</h3><ul><li>Free memory: " +data["freememory"]+ " mb</li>"
+  + "<li>Used memory: " +data["totalmemory"]+ " mb</li>" 
+  + "<li>Memory limit: " +data["maxmemory"]+ " mb</li>"
+  + "<li>Available processors: " +data["processors"]+ " </li></ul>");
+  });
+ });
+</script>
+
 <h2>Welcome!</h2>
+
+<div id="health"></div>
+
