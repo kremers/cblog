@@ -1,1 +1,1 @@
-web: lein trampoline ring server-headless 8080
+web: lein trampoline run -m cblog.core
