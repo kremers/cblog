@@ -14,6 +14,7 @@
                  [stencil "0.2.0"]
                  [com.novemberain/monger "1.0.0-SNAPSHOT"]
                  [kremers/sandbar "0.4.1-SNAPSHOT"]
+                 [kremers/monger-session "0.9.0"]
                  [clj-aws-s3 "0.3.0"]
                  ]
    :main cblog.core

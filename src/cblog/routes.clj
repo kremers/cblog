@@ -5,6 +5,7 @@
         [stencil.core]
         [cblog util security admin db]
         [compojure core]
+        [kremers.monger-session]
         [sandbar.form-authentication] [sandbar.validation] [sandbar.stateful-session] [sandbar.auth]
   ))
 
@@ -44,7 +45,7 @@
     (with-security security-policy form-authentication)
     wrap-params
     wrap-file-info
-    wrap-stateful-session
+    (wrap-stateful-session {:store (mongodb-store)})
     (wrap-file "resources")
 )))
 
