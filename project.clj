@@ -13,7 +13,7 @@
                  [ch.qos.logback/logback-classic "1.0.0"]
                  [stencil "0.2.0"]
                  [com.novemberain/monger "1.0.0-SNAPSHOT"]
-                 [kremers/sandbar "0.4.0-SNAPSHOT"]
+                 [kremers/sandbar "0.4.1-SNAPSHOT"]
                  [clj-aws-s3 "0.3.0"]
                  ]
    :main cblog.core

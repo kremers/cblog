@@ -20,7 +20,7 @@
     (validate-password
          [this]
          (fn [m]
-                (if-not (empty? (dbauth (:username m) (:password m)))
+                (if-not (empty? (dbauth (:username m) (hash-password (:password m) "hawaiian black salt")))
                          m
                          (add-validation-error m "Username and password do not match!")))))
 

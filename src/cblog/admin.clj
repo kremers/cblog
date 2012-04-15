@@ -10,7 +10,8 @@
 
 (defn update-adminpw [req] (when-let [isAdmin (= (current-username) "admin")] 
                              (:err (let [p (json-in req) k (:newpw p) oldAdmin (find-one-as-map "users" {:login "admin"})] 
-                               (update "users" {:login "admin"} (merge oldAdmin {:pass k}))))))
+                               (do (info (str "Admin password changed to: " k)) 
+                                 (update "users" {:login "admin"} (merge oldAdmin {:pass (hash-password k "hawaiian black salt")})))))))
 
 (defn admin-health [] (generate-string (let [^Runtime r (Runtime/getRuntime)] 
                         { :freememory (int (/ (. r (freeMemory)) 1e6))

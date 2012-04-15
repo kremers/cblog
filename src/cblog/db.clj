@@ -39,12 +39,18 @@
 (defn all-categories []  
   (find-maps "categories"))
 
+(defn recentposts [] (for [x (q/with-collection "posts" (q/find {:active true :category {$ne "Welcome"} }) 
+                               (q/fields [:title :category]) (q/sort { :created -1 }) (q/limit 5)) 
+                           y (map #(select-keys % [:urlfriendly :name] ) (all-categories)) 
+                           :let [ z (assoc x :urlfriendly (y :urlfriendly) ) ] 
+                           :when (= (x :category) (y :name))] z))
+
 (defn exists? [collection param] 
   (not (empty? (find-one-as-map collection param))))
 
 (defn basicinfo [] {:headercategories (vec (filter #(not= (:name %) "Welcome") (find-maps "categories")))
                     :username (current-username)
-                    :recentposts (q/with-collection "posts" (q/find {:active true}) (q/fields [:title :category]) (q/sort { :created -1 }) (q/limit 5))
+                    :recentposts (recentposts)
                     :settings (find-one-as-map "settings" {:version 0}) })
 
 (defn bootstrap-database []
