@@ -64,7 +64,7 @@
                                               "exists(settings): " settings-exists}))
    (if (not admin-exists)   (do (info "init users") 
                               (insert "users" (+user {:login "admin" 
-                                                      :pass "admin" 
+                                                      :pass (hash-password "admin" "hawaiian black salt") 
                                                       :nicename "Administrator" 
                                                       :active true}))) nil)
    (if (not welcome-exists) (do (info "init category") 
