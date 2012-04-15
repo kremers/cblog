@@ -24,7 +24,7 @@ Next todos:
 * <del>Automatic (client side) generation of URLfriendly name</del>
 * <del>Print application health on admin welcome page.  Runtime/getRuntime ...</del>
 * <del>Fix broken links "recent posts"</del>
-* Fix "number does not work as password"
+* <del>Fix "number does not work as password"</del>
 * S3 connection and binary data upload & Media Section
 * Write the persistent user sessions to mongodb, currently existing frameworks do not work with monger and clojure 1.3. Fork and refactor them
 * RSS and ATOM feed (RSS & Atom templates for mustache are available)
@@ -32,6 +32,7 @@ Next todos:
 * Tags & Tag Cloud
 * Comments, Askimet Integration
 * Move this page to a todo page and write instructions how to install this blog
+* Implement cache with clojure.core.cache
 
 Tech goal:
 
