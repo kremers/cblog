@@ -6,6 +6,8 @@
 A blogging software written in clojure. 
 
 Next todos:
+
+* Fix link to recent posts
 * S3 connection and binary data upload & Media Section
 * RSS and ATOM feed (RSS & Atom templates for mustache are available)
 * Configurable Blogroll

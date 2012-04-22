@@ -1,9 +1,9 @@
 (ns cblog.security (:use [sandbar core stateful-session auth form-authentication validation] [cblog db]))
 
 (def security-policy
-       [#".*\.(css|js|png|jpg|gif|ico)$" :any
+       [#"/admin.*"                   :admin
+        #".*\.(css|js|png|jpg|gif|ico)$" :any
         #"/admin/bootstrap"           :any
-        #"/admin.*"                   :admin 
         #"/permission-denied.*"       :any
         #"/login.*"                   :any 
         #"/logout.*"                  :any

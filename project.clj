@@ -2,7 +2,7 @@
   :description "simple blog in clojure"
   :dev-dependencies [[lein-ring "0.6.3"]]
   :dependencies [[ring/ring-jetty-adapter "1.1.0-beta3"]
-                 [org.clojure/clojure "1.3.0"]
+                 [org.clojure/clojure "1.4.0"]
                  [ring "1.0.0"]
                  [clj-time "0.3.3"]
                  [me.shenfeng/async-ring-adapter "1.0.0"]
@@ -14,7 +14,7 @@
                  [stencil "0.2.0"]
                  [com.novemberain/monger "1.0.0-SNAPSHOT"]
                  [kremers/sandbar "0.4.1-SNAPSHOT"]
-                 [kremers/monger-session "0.9.0"]
+                 [kremers/monger-session "1.0.0"]
                  [clj-aws-s3 "0.3.0"]
                  ]
    :main cblog.core
