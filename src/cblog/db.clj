@@ -3,6 +3,7 @@
   (:use [sandbar.auth] [cblog.util] [monger.core :only [connect! connect set-db! get-db]]
         [monger.collection :only [find-maps insert find-one-as-map]] [monger.operators]
         [monger.conversion]
+        [stencil.core]
         [validateur.validation] [clojure.tools.logging :only (info error)]))
 
 (def dbname "cblog")
@@ -25,10 +26,12 @@
 
 (defn valid-user? [user] (let [v (validation-set (presence-of :login) (presence-of :pass)) ] (valid? v user)))
 
+; for example to assure outgoing links to open new windows ,...
 (defn post-postprocess [text] text)
 
-(defn dbauth [user pass] 
-  (find-one-as-map "users" {:login user :pass pass}))
+(defn settings-overview [] (find-one-as-map "settings" {:version 0}))
+
+(defn dbauth [user pass] (find-one-as-map "users" {:login user :pass pass}))
 
 (defn posts-by-category [category] 
   (reverse (sort-by :created (for [x (find-maps "posts" {:category category :active true})] (update-in x [:content] post-postprocess)))))
@@ -39,11 +42,18 @@
 (defn all-categories []  
   (find-maps "categories"))
 
-(defn recentposts [] (for [x (q/with-collection "posts" (q/find {:active true :category {$ne "Welcome"} }) 
-                               (q/fields [:title :category]) (q/sort { :created -1 }) (q/limit 5)) 
+(defn read-posts    ([] (read-posts 0))
+                    ([limit] (for [x (q/with-collection "posts" (q/find {:active true :category {$ne "Welcome"} }) 
+                              (q/sort { :created -1 }) (q/limit limit)) 
                            y (map #(select-keys % [:urlfriendly :name] ) (all-categories)) 
-                           :let [ z (assoc x :urlfriendly (y :urlfriendly) ) ] 
-                           :when (= (x :category) (y :name))] z))
+                           :let [ z (merge x { :urlfriendly (y :urlfriendly) :urlfriendtitle (urlfriend (x :title)) } ) ] 
+                           :when (= (x :category) (y :name))] z)))
+
+(defn recentposts [] (read-posts 5))
+
+
+(defn readpost [urlfriendcat, urlfriendtitle] 
+  (let [found (filter #(= urlfriendtitle (urlfriend (:title %))) (posts-by-urlfriendly-category urlfriendcat))] (first found)))
 
 (defn exists? [collection param] 
   (not (empty? (find-one-as-map collection param))))
@@ -80,3 +90,14 @@
    (if (not settings-exists) (do (info "init settings")
                                (insert "settings" (+settings {}))) nil))
 )
+
+
+(defn prepare-feed    [] (let [settings (settings-overview)
+                               posts    (seq (read-posts))] 
+                           {:settings settings :posts posts} )) 
+(defn render-atomfeed [] (render-file "templates/feed/atom" (prepare-feed)))
+(defn render-rssfeed  [] (render-file "templates/feed/rss"  (prepare-feed)))
+
+
+;{:Feed {:Author :Title :Description :Link :Language :CopyrightInfo :PubDate :LastBuildDate :Items {:Title :Summary :link :guid :pubDate}} } 
+

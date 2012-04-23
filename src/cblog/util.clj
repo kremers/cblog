@@ -1,9 +1,10 @@
 (ns cblog.util
   (:refer-clojure :exclude [extend replace reverse])
+  (:require [clojure.string :as s])
   (:import [java.io BufferedReader] [java.io InputStreamReader])
   (:use [sandbar.auth] [stencil.core] [hiccup core page-helpers]
         [clj-time.core] [clj-time.format] [clojure.string]
-        [cheshire.core]))
+        [cheshire.core] ))
 
 ; Macro to recieve a BufferedReader from a request body
 (defmacro with-req-body [[binding] req & body] `(with-open [r# (~req :body)] (let [~binding (BufferedReader. (InputStreamReader. r#))] ~@body)))
@@ -23,4 +24,7 @@
 
 ; Generate timestamp
 (defn gen-timestamp [] (unparse (formatters :date-hour-minute-second) (now)))
+
+(defn urlfriend [unfriendly] (s/trim (s/replace (s/replace (s/lower-case unfriendly) #"[^A-Za-z0-9_]+" "-") #"^-|-$" "")))
+
 

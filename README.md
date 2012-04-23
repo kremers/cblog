@@ -7,14 +7,13 @@ A blogging software written in clojure.
 
 Next todos:
 
-* Fix link to recent posts
 * S3 connection and binary data upload & Media Section
 * RSS and ATOM feed (RSS & Atom templates for mustache are available)
 * Configurable Blogroll
 * Tags & Tag Cloud
 * Comments, Askimet Integration
-* Move this page to a todo page and write instructions how to install this blog *maybe
-* Implement cache with clojure.core.cache *maybe
+* Write a session timeout (check monger-session for date values)
+* <del>Fix link to recent posts</del>
 * <del>Refactor sandbar "layout" function to moustache tempalte</del>
 * <del>Datamodel for posts,...</del>
 * <del>Simple functionality to add crud posts</del>
@@ -34,6 +33,8 @@ Next todos:
 * <del>Fix broken links "recent posts"</del>
 * <del>Fix "number does not work as password"</del>
 * <del>Write the persistent user sessions to mongodb, currently existing frameworks do not work with monger and clojure 1.3. Fork and refactor them</del>
+* Move this page to a todo page and write instructions how to install this blog *maybe
+* Implement cache with clojure.core.cache *maybe
 
 Tech goal:
 
