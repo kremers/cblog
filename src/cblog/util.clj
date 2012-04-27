@@ -14,6 +14,8 @@
 ; To ensure utf8 reply
 (defn utf8response "Ring skeleton with headers." [body] {:status  200 :headers { "Content-Type" "text/html;charset=UTF-8" "Character-Encoding" "UTF-8"} :body body})
 
+(defn respond "resp 200 with spec header" [body ctype] {:status  200 :headers { "Content-Type" ctype  "Character-Encoding" "UTF-8" } :body body})
+
 (defn jsonresp "JSON Response" [body] {:status  200 :headers { "Content-Type" "application/json" "Character-Encoding" "UTF-8"} :body body})
 
 ; "default" layout

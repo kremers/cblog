@@ -5,25 +5,22 @@
 	xmlns:dc="http://purl.org/dc/elements/1.1/"
 	xmlns:atom="http://www.w3.org/2005/Atom"
 	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
-	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
-	>
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/">
 <channel>
       <title>{{settings.blogtitle}}</title>
-      <description>{{Description}}</description>
-      <link>{{Link}}</link>
-      <language>{{Language}}</language>
-      <copyright>{{CopyrightInfo}}</copyright>
-      <pubDate>{{PubDate}}</pubDate>
-      <lastBuildDate>{{LastBuildDate}}</lastBuildDate>
-
-      {{#Items}}
+      <description>{{settings.metadesc}}</description>
+      <link>{{host}}</link>
+      <language>{{#settings.language}}{{settings.language}}{{/settings.language}}{{^settings.language}}en-gb{{/settings.language}}</language>
+      <atom:link href="{{host}}/feed" rel="self" type="application/rss+xml" />
+      {{#posts}}
         <item>
-          <title>{{Title}}</title>
-          <description>{{Summary}}</description>
-          <link>{{Link}}</link>
-          <guid>{{Link}}</guid>
-          <pubDate>{{PubDate}}</pubDate>
+          <title>{{title}}</title>
+	  <description><![CDATA[ {{excerpt}} ]]></description>
+	  <content:encoded><![CDATA[ {{content}} ]]></content:encoded>
+	  <link>{{host}}/{{urlfriendly}}/{{urlfriendtitle}}</link>
+	  <guid isPermaLink="false">{{_id}}</guid>
+	  <pubDate>{{RFC822created}}</pubDate>
         </item>
-      {{/Items}}
+      {{/posts}}
   </channel>
 </rss>

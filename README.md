@@ -8,11 +8,11 @@ A blogging software written in clojure.
 Next todos:
 
 * S3 connection and binary data upload & Media Section
-* RSS and ATOM feed (RSS & Atom templates for mustache are available)
 * Configurable Blogroll
 * Tags & Tag Cloud
 * Comments, Askimet Integration
 * Write a session timeout (check monger-session for date values)
+* <del>RSS feed (RSS & Atom templates for mustache are available)</del>
 * <del>Fix link to recent posts</del>
 * <del>Refactor sandbar "layout" function to moustache tempalte</del>
 * <del>Datamodel for posts,...</del>

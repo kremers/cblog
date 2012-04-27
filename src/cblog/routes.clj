@@ -3,6 +3,7 @@
         [net.cgrand.moustache :only [app]]
         [ring.util.response :only [response redirect header]]
         [stencil.core]
+        [clojure.tools.logging :only (info error)]
         [cblog util security admin db]
         [compojure core]
         [kremers.monger-session]
@@ -40,17 +41,22 @@
     (GET  "/admin/links/" [] (adminui (render-file "templates/admin_links" {}))) 
     (GET  "/admin/media"  [] (redirect "/admin/media/"))
     (GET  "/admin/media/" [] (adminui (render-file "templates/admin_media" {})))
-    (GET  "/feed/atom"    [] (render-atomfeed))
-    (GET  "/feed"         [] (render-rssfeed))
+;    (GET  "/feed/atom"    [] (respond (render-atomfeed) "application/rss+xml"))
+    (GET  "/feed"         request (respond (render-rssfeed (:host request)) "application/rss+xml"))
     (GET  "/:category" [category]  (envelope (render-file "templates/main" {:posts (vec (posts-by-urlfriendly-category category))})))
     (GET  "/:category/:post" [category, post] (envelope (render-file "templates/showpost" (readpost category post))))
     (ANY  "*" [] (utf8response (make-404)))
 )
 
+(defn wrap-context-uri [handler]
+      (fn [request]
+              (handler (assoc request :host (str "http://" (:server-name request) ":" (:server-port request)) ))))
+
 (defn init-routes! [] (app 
   (-> my-routes 
     (with-security security-policy form-authentication)
     wrap-params
+    wrap-context-uri
     wrap-file-info
     (wrap-stateful-session {:store (mongodb-store)})
     (wrap-file "resources")

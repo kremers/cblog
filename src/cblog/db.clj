@@ -4,6 +4,8 @@
         [monger.collection :only [find-maps insert find-one-as-map]] [monger.operators]
         [monger.conversion]
         [stencil.core]
+        ;[clj-time.core]
+        [clj-time.format :only [parse unparse formatters]]
         [validateur.validation] [clojure.tools.logging :only (info error)]))
 
 (def dbname "cblog")
@@ -22,7 +24,7 @@
   (merge {:blogtitle "c(lojure) blog" :timezone nil :version 0 
           :askimetapikey nil :metadesc nil :metakeywords nil 
           :metaauthor nil :analyticsaccountkey nil 
-          :s3accesskey nil :s3secretkey nil} init))
+          :s3accesskey nil :s3secretkey nil :language "en-gb"} init))
 
 (defn valid-user? [user] (let [v (validation-set (presence-of :login) (presence-of :pass)) ] (valid? v user)))
 
@@ -46,11 +48,13 @@
                     ([limit] (for [x (q/with-collection "posts" (q/find {:active true :category {$ne "Welcome"} }) 
                               (q/sort { :created -1 }) (q/limit limit)) 
                            y (map #(select-keys % [:urlfriendly :name] ) (all-categories)) 
-                           :let [ z (merge x { :urlfriendly (y :urlfriendly) :urlfriendtitle (urlfriend (x :title)) } ) ] 
+                           :let [ z (merge x { :urlfriendly (y :urlfriendly) 
+                                               :urlfriendtitle (urlfriend (x :title)) 
+                                               :RFC822created  (unparse (formatters :rfc822) (parse (formatters :date-hour-minute-second) (x :created)))
+                                               :excerpt (let [c (x :content)] (if (> (count c) 100) (str (subs c 100) " [...]") c)) } ) ] 
                            :when (= (x :category) (y :name))] z)))
 
 (defn recentposts [] (read-posts 5))
-
 
 (defn readpost [urlfriendcat, urlfriendtitle] 
   (let [found (filter #(= urlfriendtitle (urlfriend (:title %))) (posts-by-urlfriendly-category urlfriendcat))] (first found)))
@@ -96,7 +100,7 @@
                                posts    (seq (read-posts))] 
                            {:settings settings :posts posts} )) 
 (defn render-atomfeed [] (render-file "templates/feed/atom" (prepare-feed)))
-(defn render-rssfeed  [] (render-file "templates/feed/rss"  (prepare-feed)))
+(defn render-rssfeed  [host] (render-file "templates/feed/rss" (merge (prepare-feed) {:host host})))
 
 
 ;{:Feed {:Author :Title :Description :Link :Language :CopyrightInfo :PubDate :LastBuildDate :Items {:Title :Summary :link :guid :pubDate}} } 
