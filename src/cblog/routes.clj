@@ -1,7 +1,7 @@
 (ns cblog.routes
-  (:use [ring.middleware file file-info params reload]
+  (:use [ring.middleware content-type file file-info params reload]
         [net.cgrand.moustache :only [app]]
-        [ring.util.response :only [response redirect header]]
+        [ring.util.response :only [content-type response redirect header]]
         [stencil.core]
         [clojure.tools.logging :only (info error)]
         [cblog util security admin db]
@@ -42,7 +42,7 @@
     (GET  "/admin/media"  [] (redirect "/admin/media/"))
     (GET  "/admin/media/" [] (adminui (render-file "templates/admin_media" {})))
 ;    (GET  "/feed/atom"    [] (respond (render-atomfeed) "application/rss+xml"))
-    (GET  "/feed"         request (respond (render-rssfeed (:host request)) "application/rss+xml"))
+    (GET  "/feed"         request (content-type (response (render-rssfeed (:host request))) "application/rss+xml;charset=UTF-8"))
     (GET  "/:category" [category]  (envelope (render-file "templates/main" {:posts (vec (posts-by-urlfriendly-category category))})))
     (GET  "/:category/:post" [category, post] (envelope (render-file "templates/showpost" (readpost category post))))
     (ANY  "*" [] (utf8response (make-404)))
