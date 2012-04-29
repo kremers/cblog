@@ -24,7 +24,8 @@
   (merge {:blogtitle "c(lojure) blog" :timezone nil :version 0 
           :askimetapikey nil :metadesc nil :metakeywords nil 
           :metaauthor nil :analyticsaccountkey nil 
-          :s3accesskey nil :s3secretkey nil :language "en-gb"} init))
+          :s3accesskey nil :s3secretkey nil 
+          :s3bucketname nil :language "en-gb"} init))
 
 (defn valid-user? [user] (let [v (validation-set (presence-of :login) (presence-of :pass)) ] (valid? v user)))
 

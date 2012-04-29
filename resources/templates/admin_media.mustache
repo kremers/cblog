@@ -1,1 +1,26 @@
+<link rel="stylesheet" type="text/css" href="/css/fileuploader.css"></style>
+<script type="text/javascript" src="/js/fileuploader.js"></script>
+<script type="text/javascript">
+ $(document).ready(function() {
+
+ var uploader = new qq.FileUploader({
+    // pass the dom node (ex. $(selector)[0] for jQuery users)
+    element: document.getElementById('file-uploader'),
+    // path to server-side upload script
+    action: '/admin/media/submit',
+    debug: false
+}); 
+
+});
+</script>
+
 Media:
+
+<div id="file-uploader">       
+    <noscript>          
+        <p>Please enable JavaScript to use file uploader.</p>
+        <!-- or put a simple form for upload here -->
+    </noscript>         
+</div>
+
+

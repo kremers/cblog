@@ -4,7 +4,7 @@
         [ring.util.response :only [content-type response redirect header]]
         [stencil.core]
         [clojure.tools.logging :only (info error)]
-        [cblog util security admin db]
+        [cblog util security admin db media]
         [compojure core]
         [kremers.monger-session]
         [sandbar.form-authentication] [sandbar.validation] [sandbar.stateful-session] [sandbar.auth]
@@ -41,25 +41,23 @@
     (GET  "/admin/links/" [] (adminui (render-file "templates/admin_links" {}))) 
     (GET  "/admin/media"  [] (redirect "/admin/media/"))
     (GET  "/admin/media/" [] (adminui (render-file "templates/admin_media" {})))
-;    (GET  "/feed/atom"    [] (respond (render-atomfeed) "application/rss+xml"))
+    (POST "/admin/media/submit" request (do (handle-submit request) (response "{'success': true}" )))
     (GET  "/feed"         request (content-type (response (render-rssfeed (:host request))) "application/rss+xml;charset=UTF-8"))
     (GET  "/:category" [category]  (envelope (render-file "templates/main" {:posts (vec (posts-by-urlfriendly-category category))})))
     (GET  "/:category/:post" [category, post] (envelope (render-file "templates/showpost" (readpost category post))))
     (ANY  "*" [] (utf8response (make-404)))
 )
 
-(defn wrap-context-uri [handler]
-      (fn [request]
-              (handler (assoc request :host (str "http://" (:server-name request) ":" (:server-port request)) ))))
+(defn wrap-context-uri [handler] (fn [request] (handler (assoc request :host (str "http://" (:server-name request) ":" (:server-port request)) ))))
 
 (defn init-routes! [] (app 
   (-> my-routes 
     (with-security security-policy form-authentication)
     wrap-params
     wrap-context-uri
-    wrap-file-info
     (wrap-stateful-session {:store (mongodb-store)})
     (wrap-file "resources")
+    wrap-file-info
 )))
 
 
