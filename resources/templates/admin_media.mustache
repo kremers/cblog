@@ -2,6 +2,18 @@
 <script type="text/javascript" src="/js/fileuploader.js"></script>
 <script type="text/javascript">
  $(document).ready(function() {
+ var m = $('#media');
+ var mt = $('#mediatable');
+ m.append('<img src="/img/spinner.gif" />');
+ $.get('list', function(data) {
+   $.each(data, function(index, content) {
+     mt.append("<tr><td>"+content.key+"</td>"+
+     "<td>"+(parseFloat((content.metadata['content-length'])/(1024*1024)).toFixed(2))+" MB</td>"+
+     "<td>"+(content.metadata['last-modified'])+"</td>"+
+     "<td>"+(content.metadata['etag'])+"</td></tr>");   
+   });
+   m.find('img').hide();
+ });
 
  var uploader = new qq.FileUploader({
     // pass the dom node (ex. $(selector)[0] for jQuery users)
@@ -12,15 +24,25 @@
 }); 
 
 });
+
 </script>
 
-Media:
-
-<div id="file-uploader">       
+<div id="file-uploader" style="padding:5px; float:right;">       
     <noscript>          
         <p>Please enable JavaScript to use file uploader.</p>
         <!-- or put a simple form for upload here -->
     </noscript>         
 </div>
 
+<h3>Amazon S3 Media Library</h3>
 
+<div id="media">
+<table id="mediatable" cellpadding="5" style="float:left;">
+  <tr>
+    <th>Filename (S3-Key)</th>
+    <th>Size</th>
+    <th>Last modified</th>
+    <th>ETag</th>
+  </tr>
+</table>
+</div>

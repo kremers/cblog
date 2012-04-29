@@ -41,6 +41,7 @@
     (GET  "/admin/links/" [] (adminui (render-file "templates/admin_links" {}))) 
     (GET  "/admin/media"  [] (redirect "/admin/media/"))
     (GET  "/admin/media/" [] (adminui (render-file "templates/admin_media" {})))
+    (GET  "/admin/media/list" [] (content-type (response (medialist_json)) "application/json" ))
     (POST "/admin/media/submit" request (do (handle-submit request) (response "{'success': true}" )))
     (GET  "/feed"         request (content-type (response (render-rssfeed (:host request))) "application/rss+xml;charset=UTF-8"))
     (GET  "/:category" [category]  (envelope (render-file "templates/main" {:posts (vec (posts-by-urlfriendly-category category))})))
