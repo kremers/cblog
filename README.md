@@ -7,9 +7,12 @@ A blogging software written in clojure.
 
 Next todos:
 
-* S3 connection and binary data upload & Media Section
+* Thumbnail generation for images
 * Configurable Blogroll
+* Image include functionality for wysiwyg editor
 * Tags & Tag Cloud << maybe
+* A lot error handling stuff (messages on admin overview) - missing settings,...
+* <del>S3 connection and binary data upload & Media Section</del>
 * <del>RSS feed (RSS & Atom templates for mustache are available)</del>
 * <del>Fix link to recent posts</del>
 * <del>Refactor sandbar "layout" function to moustache tempalte</del>

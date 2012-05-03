@@ -16,9 +16,11 @@
                  [kremers/sandbar "0.4.1-SNAPSHOT"]
                  [kremers/monger-session "1.0.0"]
                  [clj-aws-s3 "0.3.1"]
+                 [net.coobird/thumbnailator "0.4.1"]
                  ]
    :main cblog.core
    :source-path "src"
+   :jvm-opts ["-Djava.awt.headless=true"]
    :ring {:handler cblog.core/routes}
    :properties { :project.build.sourceEncoding "UTF-8" }
 )

@@ -7,7 +7,8 @@
  m.append('<img src="/img/spinner.gif" />');
  $.get('list', function(data) {
    $.each(data, function(index, content) {
-     mt.append("<tr><td>"+content.key+"</td>"+
+     var url = "http://s3.amazonaws.com/"+content.bucket+"/"+content.key;
+     mt.append("<tr><td><a href=\""+url+"\">"+content.key+"</a></td>"+
      "<td>"+(parseFloat((content.metadata['content-length'])/(1024*1024)).toFixed(2))+" MB</td>"+
      "<td>"+(content.metadata['last-modified'])+"</td>"+
      "<td>"+(content.metadata['etag'])+"</td></tr>");   

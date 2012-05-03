@@ -4,7 +4,6 @@
         [monger.collection :only [find-maps insert find-one-as-map]] [monger.operators]
         [monger.conversion]
         [stencil.core]
-        ;[clj-time.core]
         [clj-time.format :only [parse unparse formatters]]
         [validateur.validation] [clojure.tools.logging :only (info error)]))
 
