@@ -17,7 +17,8 @@
                  [kremers/sandbar "0.4.1-SNAPSHOT"]
                  [kremers/monger-session "1.0.0"]
                  [clj-aws-s3 "0.3.1"]
-                 [net.coobird/thumbnailator "0.4.1"]
+                 ;[net.coobird/thumbnailator "0.4.1"] << memory leakish
+                 [org.imgscalr/imgscalr-lib "4.2"]
                  ]
    :main cblog.core
    :source-path "src"
