@@ -2,20 +2,42 @@
 <script type="text/javascript" src="/js/fileuploader.js"></script>
 <script type="text/javascript">
  $(document).ready(function() {
+ 
  var m = $('#media');
  var mt = $('#mediatable');
- m.append('<img src="/img/spinner.gif" />');
+ m.append('<img id="spinner" src="/img/spinner.gif" />');
  $.get('list', function(data) {
    $.each(data, function(index, content) {
+     var splcnt = content.key.split("\.");
+     var name   = splcnt[0];
+     if(name.match(/thumbnails\//)) return;
+     var postfix = splcnt[1];
      var url = "http://s3.amazonaws.com/"+content.bucket+"/"+content.key;
-     mt.append("<tr><td><a href=\""+url+"\">"+content.key+"</a></td>"+
+     if(!$.inArray(postfix,["jpg", "gif", "png"])) {
+       var thumbnail =  "<img src='/cdn/thumbnails/"+name+"_150_150."+postfix+"' />";
+     } else {
+       var thumbnail =  "n/a"
+     }
+     mt.append("<tr><td><img src=\"/img/remove.png\" class=\"deleteicon\"></td>"+
+     "<td style='text-align:center;'>"+thumbnail+"</td>"+
+     "<td><a href=\""+url+"\">"+content.key+"</a></td>"+
      "<td>"+(parseFloat((content.metadata['content-length'])/(1024*1024)).toFixed(2))+" MB</td>"+
      "<td>"+(content.metadata['last-modified'])+"</td>"+
-     "<td>"+(content.metadata['etag'])+"</td></tr>");   
-   });
-   m.find('img').hide();
- });
+     "</tr>");   
 
+     });
+
+    $('.deleteicon').click(function() {
+     var key = $(this).closest("tr").find("a").text();
+     var content = JSON.stringify({key: (key)}, null, 2);
+     //if(!confirm("sure?")) return;
+     $.ajax({ type: 'POST', contentType: 'application/json', url: 'remove', data: content, processData: false, dataType: 'json',
+       success: function(data) { alert('success'); }});
+     });
+
+   $('#spinner').hide();
+ });
+ 
  var uploader = new qq.FileUploader({
     // pass the dom node (ex. $(selector)[0] for jQuery users)
     element: document.getElementById('file-uploader'),
@@ -40,10 +62,11 @@
 <div id="media">
 <table id="mediatable" cellpadding="5" style="float:left;">
   <tr>
+    <th>Action</th>
+    <th>Preview</th>
     <th>Filename (S3-Key)</th>
     <th>Size</th>
     <th>Last modified</th>
-    <th>ETag</th>
   </tr>
 </table>
 </div>

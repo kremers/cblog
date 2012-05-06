@@ -9,7 +9,7 @@
   </appender>
    
   <logger name="cblog" level="INFO"/>
-
+  <logger name="com.amazonaws.services.s3.AmazonS3Client" level="ERROR" />
   <!--  <logger name="net.spy.memcached" level="DEBUG"/>  
   -->
   <root level="warn">
