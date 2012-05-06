@@ -13,7 +13,8 @@
      if(name.match(/thumbnails\//)) return;
      var postfix = splcnt[1];
      var url = "http://s3.amazonaws.com/"+content.bucket+"/"+content.key;
-     if(!$.inArray(postfix,["jpg", "gif", "png"])) {
+     var types = ["jpg", "gif", "png", "bmp"];
+     if($.inArray(postfix,types) > -1) {
        var thumbnail =  "<img src='/cdn/thumbnails/"+name+"_150_150."+postfix+"' />";
      } else {
        var thumbnail =  "n/a"
