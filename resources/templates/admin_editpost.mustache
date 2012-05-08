@@ -41,16 +41,25 @@ $(document).ready(function() {
   </div>
 </div>
 
+<div id="tagbox" class="uiwidget">
+<h3>Tags</h3>
+<div style="text-align:center;">
+<label for="tags" class="taglabel">Separate with commas</label>
+<input type="text" class="taginput" value="{{post.tags}}" />
+<div id="tags">
+<input type="hidden" name="tags[]" value="xy" />
+<input type="hidden" name="tags[]" value="zz" />
+</div>
+</div>
+</div>
+
 <div id="furtheroptions" class="uiwidget">
 <h3>Settings</h3>
 <div style="text-align:center;">
  <label for="showtitle" class="checkboxlabel">Show title</label>
  <input type="checkbox" name="showtitle" {{^post._id}}checked="checked"{{/post._id}} {{#post.showtitle}}checked="checked"{{/post.showtitle}} />
 </div>
+</div>
 
 </form>
-
-<!--Tags
-=> Add/Remove
--->
 

@@ -25,12 +25,14 @@
         inactive (- sum active)] 
     {:posts posts :sum sum :active active :inactive inactive}))
 
+; Needs refactoring, :... section far too long
 (defn save-post [params]
   (let [ draft? (= (params "save") "Save Draft")
          post   (+post { :title (params "title")
                          :author (current-username)
                          :category (params "category")
                          :content (params "content")
+                         :tags    (params "tags[]")
                          :showtitle (= "on" (params "showtitle"))
                          :active (not draft?)})]  
   (if-let [id (params "postid")] (update-by-id "posts" (ObjectId. id) post) (insert "posts" post))))

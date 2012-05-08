@@ -7,10 +7,12 @@ A blogging software written in clojure.
 
 Next todos:
 
+* Add fancy ajax response in media section (delete,...)
 * Configurable Blogroll
 * Image include functionality for wysiwyg editor
 * Tags & Tag Cloud << maybe
 * A lot error handling stuff (messages on admin overview) - missing settings,...
+* Hell yeah! First release 1.0.0
 * <del>Thumbnail generation for images</del>
 * <del>S3 connection and binary data upload & Media Section</del>
 * <del>RSS feed (RSS & Atom templates for mustache are available)</del>
