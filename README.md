@@ -7,6 +7,7 @@ A blogging software written in clojure.
 
 Next todos:
 
+* Slugify s3 key names (spaces cause errors,...)
 * Add fancy ajax response in media section (delete,...)
 * Configurable Blogroll
 * Image include functionality for wysiwyg editor
@@ -52,6 +53,10 @@ Tech goal:
 * Optional caching with memcached
 * Binary data in S3, other data in MongoDB (sessions, posts, ...)
 * "Reference" building for a clojure web stacks
+
+Ideas: 
+
+* More Info on admin welcome page (server load, database stats)
 
 ## Usage
 

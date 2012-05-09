@@ -5,17 +5,23 @@
 <script type="text/javascript">
 var tags = [];
 $(document).ready(function() {
- var tags = [];
  
  function rendertags() {  
    $.each($("#tags").children(),function(t,e) { $(e).remove(); });
    $.each(tags,function (t,e) {
-     $("#tags").append("<span class=\"showtag\">"+e+"</span><input type=\"hidden\" name=\"tags[]\" value=\""+e+"\" />");
-   });
-   $('.taginput').val("");}
+     $("#tags").append("<span class=\"showtag\">"+
+        "<a class=\"tagdelete\">X</a>&nbsp;"+
+         e+"<input type=\"hidden\" name=\"tags[]\" value=\""+e+"\" /></span>");}); 
+   $('.taginput').val("");
+   $(".tagdelete").click(function() {
+   var ntags = []; var e = $(this);
+   $.each(tags,function(i,v) { if( v != e.parent().find("input").val()) ntags.push(v); });
+   tags = ntags;
+   e.parent().remove();
+   });}
 
  {{#post.tags}} tags.push("{{.}}"); {{/post.tags}} rendertags();
-
+ 
  if($("#title").val() != "") $("#title-prompt-text").hide();
  $("#title").focus(function(e) { $("#title-prompt-text").hide()   } );
  $("#title").blur(function() { if($(this).val() == "") $("#title-prompt-text").show();  } );

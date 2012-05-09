@@ -41,7 +41,7 @@ form fieldset legend
 	margin:5px;
 	padding:5px;
 	position:relative;
-	width:150px;
+	width:160px;
 }
 
 .uiwidget h3
@@ -120,10 +120,24 @@ input,textarea
 
 #tags span {
 	margin-right: 25px;
+	margin-left:9px;
 	display: block;
 	float: left;
 	font-size: 11px;
 	line-height: 1.8em;
 	white-space: nowrap;
 	cursor: default;
+}
+
+.tagdelete {
+  margin: 6px 0 0 -9px;
+  cursor: pointer;
+  width: 10px;
+  height: 10px;
+  display: block;
+  float: left;
+  text-indent: -9999px;
+  overflow: hidden;
+  position: absolute;
+  background: url(http://www.martinkremers.de/blog/wp-admin/images/xit.gif) no-repeat; 
 }

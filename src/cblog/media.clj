@@ -15,22 +15,11 @@
 (defn media-exists? [k] (s3/object-exists? (cred) (bucket) k))
 (defn medialist_json [] (generate-string (:objects (media_list))))
 
-;(defn gen-thumbnail "returns input stream to image" [url x y] 
-;  (let [in-stream (PipedInputStream.)]  
-;  (future (with-open [out (-> in-stream (PipedOutputStream.))]
-;    (-> (net.coobird.thumbnailator.Thumbnails/fromURLs [(as-url url)]) (.size x y) (.outputFormat "jpg") (.toOutputStream out)))) in-stream))
-
 (defn gen-thumbnail "returns input stream to image" [url x y] 
   (let [#^java.awt.image.BufferedImage old (javax.imageio.ImageIO/read (as-url url)) 
         out (org.imgscalr.Scalr/resize old x y (into-array BufferedImageOp []))]
     (with-open [aout (ByteArrayOutputStream.)] 
       (do (.flush old) (javax.imageio.ImageIO/write out "jpeg" aout) (ByteArrayInputStream. (.toByteArray aout))))))
-
-;(defn gen-thumbnail "returns input stream to image" [url x y]
-;  (let [aout (ByteArrayOutputStream.)]
-;  (javax.imageio.ImageIO/write 
-;    (-> (net.coobird.thumbnailator.Thumbnails/fromURLs [(as-url url)]) (.size x y) (.asBufferedImage)) "jpeg" aout)
-;   (new ByteArrayInputStream (.toByteArray aout) )))
 
 (defn tgen [src x y] (let [fspl (re-find #"([^/]+)\.([^\.]+)$" src) fname (fspl 1) fext (fspl 2) tnail (gen-thumbnail src x y)] 
   (media_upload (str "thumbnails/" fname "_" x "_" y "." fext) (gen-thumbnail src x y) {:content-type "image/jpeg"})))
