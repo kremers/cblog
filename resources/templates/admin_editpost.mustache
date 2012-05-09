@@ -1,19 +1,40 @@
 
 {{#postid}}<h2 class="widgettitle">Edit Post</h2>{{/postid}}
 {{^postid}}<h2 class="widgettitle">Add New Post</h2>{{/postid}}
-
- <script type="text/javascript" src="/js/nicEdit.js"></script>
+<script type="text/javascript" src="/js/nicEdit.js"></script>
 <script type="text/javascript">
+var tags = [];
 $(document).ready(function() {
+ var tags = [];
+ 
+ function rendertags() {  
+   $.each($("#tags").children(),function(t,e) { $(e).remove(); });
+   $.each(tags,function (t,e) {
+     $("#tags").append("<span class=\"showtag\">"+e+"</span><input type=\"hidden\" name=\"tags[]\" value=\""+e+"\" />");
+   });
+   $('.taginput').val("");}
+
+ {{#post.tags}} tags.push("{{.}}"); {{/post.tags}} rendertags();
+
  if($("#title").val() != "") $("#title-prompt-text").hide();
  $("#title").focus(function(e) { $("#title-prompt-text").hide()   } );
  $("#title").blur(function() { if($(this).val() == "") $("#title-prompt-text").show();  } );
  var editor = new nicEditor({iconsPath: '/js/nicEditorIcons.gif'});
  editor.panelInstance('textarea');
+  
+ $('.taginput').keydown(function(e) { /* 13 = return key */if( e.keyCode === 13) { return false; }});
+
+ $('.taginput').change(function() {
+   // Logic to sync tags
+   $.each($(this).val().split(','), function(i,v) {
+     var tag = v.trim();
+     if($.inArray(tag, tags) == -1) tags.push(tag);
+   }); rendertags();
+ });
 });
 </script>
 
-<form action="save" method="post">
+<form id="pform" action="save" method="post">
 <div id="postcontainer" style="position: relative; float: left; width:550px;">
   {{#post._id}}<input name="postid" type="hidden" value="{{post._id}}" />{{/post._id}}
   <label class="hide-if-no-js" id="title-prompt-text" for="title">Enter title here</label>
@@ -47,8 +68,6 @@ $(document).ready(function() {
 <label for="tags" class="taglabel">Separate with commas</label>
 <input type="text" class="taginput" value="{{post.tags}}" />
 <div id="tags">
-<input type="hidden" name="tags[]" value="xy" />
-<input type="hidden" name="tags[]" value="zz" />
 </div>
 </div>
 </div>

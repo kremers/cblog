@@ -116,3 +116,14 @@ input,textarea
 	padding:3px 8px;
 	width:100%;
 }
+
+
+#tags span {
+	margin-right: 25px;
+	display: block;
+	float: left;
+	font-size: 11px;
+	line-height: 1.8em;
+	white-space: nowrap;
+	cursor: default;
+}
