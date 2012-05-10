@@ -22,15 +22,17 @@
       (do (.flush old) (javax.imageio.ImageIO/write out "jpeg" aout) (ByteArrayInputStream. (.toByteArray aout))))))
 
 (defn tgen [src x y] (let [fspl (re-find #"([^/]+)\.([^\.]+)$" src) fname (fspl 1) fext (fspl 2) tnail (gen-thumbnail src x y)] 
-  (media_upload (str "thumbnails/" fname "_" x "_" y "." fext) (gen-thumbnail src x y) {:content-type "image/jpeg"})))
+                       (media_upload (str "thumbnails/" fname "_" x "_" y "." fext) (gen-thumbnail src x y) {:content-type "image/jpeg"})))
 
 (defn handle-submit [req] (let [filename (clojure.string/lower-case ((:query-params req) "qqfile")) 
+                                fspl (re-find #"([^/]+)\.([^\.]+)$" filename)
+                                s3key (str (urlfriend (fspl 1)) "." (fspl 2))
                                 input (:body req) 
                                 clength (:content-length req) 
                                 ctype (mt/ext-mime-type filename) ] 
-                           (do (debug (with-out-str (clojure.pprint/pprint req))) 
-                            (media_upload filename input {:content-length clength :content-type ctype})
-                            (when (re-matches #"^image.+" ctype) (tgen (str "http://s3.amazonaws.com/" (bucket) "/" filename) 150 150)))))
+                            (do (debug (with-out-str (clojure.pprint/pprint req))) 
+                                (media_upload s3key input {:content-length clength :content-type ctype})
+                                (when (re-matches #"^image.+" ctype) (tgen (str "http://s3.amazonaws.com/" (bucket) "/" s3key) 150 150)))))
 
 (defn media_redirect [key] {:status 301 :headers {"Location" (str "http://s3.amazonaws.com/" (bucket) "/" key)} :body ""})
 (defn delete-media [req] (media_remove (:key (json-in req))))

@@ -25,4 +25,6 @@
    :jvm-opts ["-Djava.awt.headless=true"]
    :ring {:handler cblog.core/routes}
    :properties { :project.build.sourceEncoding "UTF-8" }
+   :plugins  [[lein-swank "1.4.4"]] 
+
 )

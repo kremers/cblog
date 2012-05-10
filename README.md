@@ -11,7 +11,7 @@ Next todos:
 * Add fancy ajax response in media section (delete,...)
 * Configurable Blogroll
 * Image include functionality for wysiwyg editor
-* Tags & Tag Cloud << maybe
+* <del>Tags</del> & Tag Cloud
 * A lot error handling stuff (messages on admin overview) - missing settings,...
 * Hell yeah! First release 1.0.0
 * <del>Thumbnail generation for images</del>
