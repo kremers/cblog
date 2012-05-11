@@ -1,7 +1,8 @@
 (ns cblog.db
+  (:import [com.mongodb.MapReduceCommand$OutputType])
   (:require [monger.query :as q])
   (:use [sandbar.auth] [cblog.util] [monger.core :only [connect! connect set-db! get-db]]
-        [monger.collection :only [find-maps insert find-one-as-map]] [monger.operators]
+        [monger.collection :only [find-maps insert find-one-as-map map-reduce]] [monger.operators]
         [monger.conversion]
         [stencil.core]
         [clj-time.format :only [parse unparse formatters]]
@@ -25,6 +26,10 @@
           :metaauthor nil :analyticsaccountkey nil 
           :s3accesskey nil :s3secretkey nil 
           :s3bucketname nil :language "en-gb"} init))
+
+(defn count-tags [] (let [m "function() { if(this.tags != null) this.tags.forEach(function(z) { emit(z, {count : 1}) }); };"
+                          r "function( key , values ){ var total = 0; for ( var i=0; i<values.length; i++ ) total += values[i].count;  return { count : total }; };"
+                          q {}] (sort-by #(clojure.string/lower-case (:name %)) (map #(hash-map :name (:_id %) :count (:count (:value %))) (from-db-object (.results (map-reduce "posts" m r nil (com.mongodb.MapReduceCommand$OutputType/valueOf (name "INLINE")) q)) true))))) 
 
 (defn valid-user? [user] (let [v (validation-set (presence-of :login) (presence-of :pass)) ] (valid? v user)))
 
@@ -58,6 +63,8 @@
 
 (defn readpost [urlfriendcat, urlfriendtitle] 
   (let [found (filter #(= urlfriendtitle (urlfriend (:title %))) (posts-by-urlfriendly-category urlfriendcat))] (first found)))
+
+(defn posts-by-tag [tag] (filter #(in-coll? tag (:tags %)) (read-posts)))
 
 (defn exists? [collection param] 
   (not (empty? (find-one-as-map collection param))))
@@ -102,6 +109,4 @@
 (defn render-atomfeed [] (render-file "templates/feed/atom" (prepare-feed)))
 (defn render-rssfeed  [host] (render-file "templates/feed/rss" (merge (prepare-feed) {:host host})))
 
-
-;{:Feed {:Author :Title :Description :Link :Language :CopyrightInfo :PubDate :LastBuildDate :Items {:Title :Summary :link :guid :pubDate}} } 
 

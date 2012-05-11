@@ -4,14 +4,14 @@
         [ring.util.response :only [content-type response redirect header]]
         [stencil.core]
         [clojure.tools.logging :only (info error)]
-        [cblog util security admin db media]
+        [cblog util security admin db media tagcloud]
         [compojure core]
         [kremers.monger-session]
         [sandbar.form-authentication] [sandbar.validation] [sandbar.stateful-session] [sandbar.auth]
   ))
 
 
-(defn envelope [content] (utf8response (render-file "templates/default"  (merge {:capsule content} (basicinfo)))))
+(defn envelope [content] (utf8response (render-file "templates/default"  (merge {:capsule content} (basicinfo) {:tagcloud (tagcloud)}))))
 (defn adminui  [content] (utf8response (render-file "templates/default_adminui" 
                              (merge {:capsule content} 
                                     (basicinfo) 
@@ -45,6 +45,7 @@
     (POST "/admin/media/submit" request (do (handle-submit request) (response "{\"success\": true}" )))
     (POST "/admin/media/remove" request (do (delete-media request) (content-type (response "{\"success\": true}" ) "application/json;charset=UTF-8" )))
     (GET  "/feed"         request (content-type (response (render-rssfeed (:host request))) "application/rss+xml;charset=UTF-8"))
+    (GET  "/tag/:tag" [tag] (envelope (render-file "templates/main" {:posts (vec (posts-by-tag tag)) })))
     (GET  ["/cdn/:key" :key #".+"] [key] (media_redirect key))
     (GET  "/:category" [category]  (envelope (render-file "templates/main" {:posts (vec (posts-by-urlfriendly-category category))})))
     (GET  "/:category/:post" [category, post] (envelope (render-file "templates/showpost" (readpost category post))))

@@ -8,10 +8,10 @@ A blogging software written in clojure.
 Next todos:
 
 * Configurable Blogroll
-* <del>Tags</del> & Tag Cloud
 * A lot error handling stuff (messages on admin overview) - missing settings,...
 * Hell yeah! First release 1.0.0
 * Image include functionality for wysiwyg editor
+* <del>Tags & Tag Cloud</del>
 * <del>Add fancy ajax response in media section (delete,...)</del>
 * <del>Slugify s3 key names (spaces cause errors,...)</del>
 * <del>Thumbnail generation for images</del>

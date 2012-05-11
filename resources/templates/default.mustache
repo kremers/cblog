@@ -85,9 +85,12 @@
 
   <div id="r_sidebar">
     <ul id="r_sidebarwidgeted">
+      
       <li id="tag_cloud-2" class="widget widget_tag_cloud"><h2 class="widgettitle">Tags</h2>
-      <div class="tagcloud"> </div>
+      <div class="tagcloud"> {{#tagcloud}} 
+      <a href="/tag/{{name}}" style="font-size: {{size}}pt; color: {{color}};">{{name}}</a> {{/tagcloud}} </div>
       </li>
+     
     
     <li id="akismet" class="widget widget_akismet">
 				<h2 class="widgettitle">Spam Blocked</h2>
