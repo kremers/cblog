@@ -27,7 +27,7 @@
           :s3accesskey nil :s3secretkey nil 
           :s3bucketname nil :language "en-gb"} init))
 
-(defn count-tags [] (let [m "function() { if(this.tags != null) this.tags.forEach(function(z) { emit(z, {count : 1}) }); };"
+(defn count-tags [] (let [m "function() { if(this.tags != null) for(index in this.tags) { emit(this.tags[index], {count : 1}); } };"
                           r "function( key , values ){ var total = 0; for ( var i=0; i<values.length; i++ ) total += values[i].count;  return { count : total }; };"
                           q {}] (sort-by #(clojure.string/lower-case (:name %)) (map #(hash-map :name (:_id %) :count (:count (:value %))) (from-db-object (.results (map-reduce "posts" m r nil (com.mongodb.MapReduceCommand$OutputType/valueOf (name "INLINE")) q)) true))))) 
 
