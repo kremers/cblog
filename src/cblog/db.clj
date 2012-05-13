@@ -27,9 +27,17 @@
           :s3accesskey nil :s3secretkey nil 
           :s3bucketname nil :language "en-gb"} init))
 
-(defn count-tags [] (let [m "function() { if(this.tags != null) for(index in this.tags) { emit(this.tags[index], {count : 1}); } };"
+(defn map-reduce-count-tags [] (let [m "function() { if(this.tags != null) for(index in this.tags) { emit(this.tags[index], {count : 1}); } };"
                           r "function( key , values ){ var total = 0; for ( var i=0; i<values.length; i++ ) total += values[i].count;  return { count : total }; };"
-                          q {}] (sort-by #(clojure.string/lower-case (:name %)) (map #(hash-map :name (:_id %) :count (:count (:value %))) (from-db-object (.results (map-reduce "posts" m r nil (com.mongodb.MapReduceCommand$OutputType/valueOf (name "INLINE")) q)) true))))) 
+                          q {}
+                          res (map-reduce "posts" m r nil (com.mongodb.MapReduceCommand$OutputType/valueOf (name "INLINE")) q)]
+                                (if (>= (-> (.getRaw res) (.get "counts") (.get "input")) 2)
+                                  (sort-by #(clojure.string/lower-case (:name %))
+                                           (map #(hash-map :name (:_id %) :count (:count (:value %)))
+                                                (from-db-object (.results res) true))) nil))) 
+
+(defn count-tags [] (let [taglist (q/with-collection "posts" (q/find {:active true :category {$ne "Welcome"}}) (q/fields [:tags]))]
+          (sort-by #(clojure.string/lower-case (:name %) ) (map (fn [[x y]] {:name x :count y} ) (frequencies (filter #(not= % nil) (flatten (map #(:tags %) taglist))))))))
 
 (defn valid-user? [user] (let [v (validation-set (presence-of :login) (presence-of :pass)) ] (valid? v user)))
 
