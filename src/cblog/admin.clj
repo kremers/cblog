@@ -53,8 +53,10 @@
 (defn categories-overview [] (overview "categories"))
 (defn remove-category [req] (delete-by-id req "categories"))
 (defn save-category [req] (save-new req "categories" (+category)))
+(defn save-link [req] (save-new req "links" (+link)))
 (defn remove-post [req] (delete-by-id req "posts"))
 (defn remove-link [req] (delete-by-id req "links"))
+
 (defn update-category [req] (edit-by-id req (+category)))
 
 (defn admin-health [] (generate-string (let [^Runtime r (Runtime/getRuntime)] 

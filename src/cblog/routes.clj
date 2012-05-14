@@ -39,6 +39,8 @@
     (GET  "/admin/health" [] (jsonresp (admin-health)))
     (GET  "/admin/links"  [] (redirect "/admin/links/"))
     (GET  "/admin/links/" [] (adminui (render-file "templates/admin_links" {}))) 
+    (POST "/admin/links/save" request (jsonresp (save-link request)))
+    (POST "/admin/links/remove" request (jsonresp (remove-link request)))
     (GET  "/admin/media"  [] (redirect "/admin/media/"))
     (GET  "/admin/media/" [] (adminui (render-file "templates/admin_media" {})))
     (GET  "/admin/media/list" [] (content-type (response (medialist_json)) "application/json;charset=UTF-8" ))
