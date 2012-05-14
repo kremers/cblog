@@ -1,16 +1,13 @@
 # cblog
-**This is still not production ready!**
+Version 1.0.0 and instructions for the basic setup will be released soon. 
 
 ![build status](https://secure.travis-ci.org/kremers/cblog.png?branch=master)
 
-A blogging software written in clojure. 
+Blogging software written in clojure. 
 
 Next todos:
 
 * Configurable Blogroll
-* A lot error handling stuff (messages on admin overview) - missing settings,...
-* Hell yeah! First release 1.0.0
-* Image include functionality for wysiwyg editor
 * <del>Tags & Tag Cloud</del>
 * <del>Add fancy ajax response in media section (delete,...)</del>
 * <del>Slugify s3 key names (spaces cause errors,...)</del>
@@ -37,8 +34,11 @@ Next todos:
 * <del>Fix broken links "recent posts"</del>
 * <del>Fix "number does not work as password"</del>
 * <del>Write the persistent user sessions to mongodb, currently existing frameworks do not work with monger and clojure 1.3. Fork and refactor them</del>
+* Image include functionality for wysiwyg editor
+* A lot error handling stuff (messages on admin overview) - missing settings,...
 * Move this page to a todo page and write instructions how to install this blog *maybe
 * Implement cache with clojure.core.cache *maybe
+* Minify javascript
 
 After initial release:
 * Write a session timeout (check monger-session for date values)
