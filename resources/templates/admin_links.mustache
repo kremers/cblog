@@ -1,1 +1,95 @@
-Links:
+<script type="text/javascript">
+ $(document).ready(function() {
+$(".deleteicon").click(function() {
+                        var oid = this.id.split("_")[1];
+                        var content = JSON.stringify({id: (oid)}, null, 2);
+                        if(!confirm("sure?")) return;
+                        $.ajax({ type: 'POST', contentType: 'application/json', url: 'remove', data: content, processData: false, dataType: 'json',
+                               success: function(data) { $("#"+oid).remove();  }});
+                });
+
+//$('#*_txt').keydown(function(e) { /* 13 = return key */if( e.keyCode === 13) { $("#saveButton").trigger('click'); }});
+//$('#add').submit(function() {return false;});
+
+//$('#saveButton').click(function() { $('#linkform').submit();  });
+
+$('#saveButton').click(function() {
+
+//todo: request structure
+ var $inp =  $('#linkform :input');
+ var values = {};
+ $inp.each(function() {
+        values[this.name] = $(this).val();
+ });
+ 
+ var content = JSON.stringify(values, null, 2);
+ //alert("content: " + content);
+                    $.ajax({
+                       type: 'POST',
+                       contentType: 'application/json',
+                       url: 'save',
+                       data: content,
+                       success: function(data) { location.reload(true); },
+                       processData: false,
+                       dataType: 'json'
+                    });
+   });
+
+  $('#showaddbox').click(function() {
+    if($('#addbox').is(":visible")) {
+      $('#addbox').fadeOut();
+      $(this).attr("src","/img/plus.gif");
+    } else {
+      $('#addbox').fadeIn();
+      $(this).attr("src","/img/minus.gif");
+    }
+  });
+
+});
+
+</script>
+
+<form id="linkform">
+<h2>Links <img src="/img/plus.gif" id="showaddbox" /></h2>
+ <div id="addbox"  style="width:100%; display:none;">
+ <table>
+        <tr><td><label for="name_txt">Name</label></td><td><input id="name_txt" name="name" type="text" size="30" maxlength="200" /></td></tr>
+        <tr><td><label for="category_txt">Category</label> </td><td> <input id="category_txt" name="category" type="text" size="30" maxlength="200" /></td></tr>
+        <tr><td><label for="desc_txt">Description</label> </td><td> <input id="desc_txt" name="desc" type="text" size="30" maxlength="200" /> <br /></td></tr>
+        <tr><td><label for="address_txt">URL</label> </td><td> <input id="address_txt" name="address" type="text" size="30" /> <br /></td></tr>
+        <tr><td><label for="rating_txt" >Rating</label> </td><td>  <select id="rating_txt" name="rating"> 
+                   <option value="0">0</option>
+                   <option value="1">1</option>
+                   <option value="2">2</option>
+                   <option value="3">3</option>
+                   <option value="4">4</option>
+                   <option value="5">5</option>
+                   <option value="6">6</option>
+                   <option value="7">7</option>
+                   <option value="8">8</option>
+                   <option value="9">9</option>
+                   <option value="10">10</option>
+           </select><img style="margin-left:15px;" id="saveButton" src="/img/disc.gif" /></td></tr>
+ </table>
+ </div>
+
+<div id="linktable">
+<table width="100%" id="linkOverview">
+  <tr> <th></th> <th>Name</th> <th>Category</th> <th>Description</th> <th>Address</th>  <th>Target</th> <th>Rating</th></tr>
+{{#links}}
+  <tr id="{{_id}}">
+  <td>
+    <!--<a href="#"><img id="edit_{{_id}}" src="/img/edit.png" class="editicon" /></a>
+    | --><img src="/img/remove.png" id="remove_{{_id}}" class="deleteicon" />
+  </td>
+  <td id="name_{{_id}}">{{name}}</td>
+  <td id="category_{{id}}">{{category}}</td>
+  <td id="desc_{{_id}}">{{desc}}</td>
+  <td id="adress_{{id}}">{{address}}</td>
+  <td id="target_{{id}}">{{target}}</td>
+  <td id="rating_{{id}}">{{rating}}</td>
+{{/links}}
+</table>
+</div>
+
+</form>

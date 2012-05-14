@@ -73,7 +73,9 @@
 
 	    <li id="linkcat-2" class="widget widget_links" style="list-style: none;"><h2 class="widgettitle">Blogroll</h2>
 	    	<ul class="xoxo blogroll">
-			<li><a href="http://xkcd.com/">XKCD</a></li>
+		{{#links}}	
+                  <li><a href="{{address}}" target="{{target}}">{{name}}</a></li>
+                {{/links}}
 		</ul>
 		</li> </ul>
   </div>

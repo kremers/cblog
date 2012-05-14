@@ -4,6 +4,8 @@
         [monger.collection :only [find-maps update remove-by-id update-by-id find-map-by-id find-one-as-map insert]]
         [monger.operators] [clojure.tools.logging :only (info error)]))
 
+(defn get-links [] (find-maps "links"))
+
 (defn update-settings [req] (let [p (json-in req) k (:key p) v (:value p) old (settings-overview)] 
     (if (contains? (+settings) (keyword k)) (:err (update "settings" {:version 0} (merge old {(keyword k) v}))) "key not available")) )
 

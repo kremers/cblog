@@ -7,7 +7,7 @@ Blogging software written in clojure.
 
 Next todos:
 
-* Configurable Blogroll
+* <del>Configurable Blogroll</del>
 * <del>Tags & Tag Cloud</del>
 * <del>Add fancy ajax response in media section (delete,...)</del>
 * <del>Slugify s3 key names (spaces cause errors,...)</del>

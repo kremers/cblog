@@ -11,8 +11,11 @@
   ))
 
 
-(defn envelope [content] (utf8response (render-file "templates/default"  (merge {:capsule content} (basicinfo) {:tagcloud (tagcloud)}))))
-(defn adminui  [content] (utf8response (render-file "templates/default_adminui" 
+(defn envelope
+  [content] (utf8response (render-file "templates/default"
+                             (merge {:capsule content} (basicinfo) {:tagcloud (tagcloud)} {:links (vec (get-links))}))))
+(defn adminui
+  [content] (utf8response (render-file "templates/default_adminui" 
                              (merge {:capsule content} 
                                     (basicinfo) 
                                     {:adminmenue (render-file "templates/adminmenue" nil)}))))
@@ -38,7 +41,7 @@
     (POST "/admin/settings/adminpwchange" request (jsonresp (update-adminpw  request)))
     (GET  "/admin/health" [] (jsonresp (admin-health)))
     (GET  "/admin/links"  [] (redirect "/admin/links/"))
-    (GET  "/admin/links/" [] (adminui (render-file "templates/admin_links" {}))) 
+    (GET  "/admin/links/" [] (adminui (render-file "templates/admin_links" {:links (vec (get-links))}))) 
     (POST "/admin/links/save" request (jsonresp (save-link request)))
     (POST "/admin/links/remove" request (jsonresp (remove-link request)))
     (GET  "/admin/media"  [] (redirect "/admin/media/"))
