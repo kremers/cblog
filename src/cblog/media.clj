@@ -19,10 +19,10 @@
   (let [#^java.awt.image.BufferedImage old (javax.imageio.ImageIO/read (as-url url)) 
         out (org.imgscalr.Scalr/resize old x y (into-array BufferedImageOp []))]
     (with-open [aout (ByteArrayOutputStream.)] 
-      (do (.flush old) (javax.imageio.ImageIO/write out "jpeg" aout) (ByteArrayInputStream. (.toByteArray aout))))))
+      (do (.flush old) (javax.imageio.ImageIO/write out "png" aout) (ByteArrayInputStream. (.toByteArray aout))))))
 
 (defn tgen [src x y] (let [fspl (re-find #"([^/]+)\.([^\.]+)$" src) fname (fspl 1) fext (fspl 2) tnail (gen-thumbnail src x y)] 
-                       (media_upload (str "thumbnails/" fname "_" x "_" y "." fext) (gen-thumbnail src x y) {:content-type "image/jpeg"})))
+                       (media_upload (str "thumbnails/" fname "_" x "_" y ".png") (gen-thumbnail src x y) {:content-type "image/png"})))
 
 (defn handle-submit [req] (let [filename (clojure.string/lower-case ((:query-params req) "qqfile")) 
                                 fspl (re-find #"([^/]+)\.([^\.]+)$" filename)
