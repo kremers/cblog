@@ -10,5 +10,6 @@
   [input] (let [counters (map #(second (vals %)) input) cmax (apply max counters) cmin (apply min counters)]
             (map #(assoc % :weight (weight (:count %) cmin cmax)) input)))
 (defn add-size-and-color [input] (map #(assoc % :color (color (:weight %)) :size (size (:weight %) 9 18)) input))
-(defn tagcloud [] (let[tags (count-tags)]  (if (>= (count tags) 2) (add-size-and-color (addweight tags)) nil)))
+(defn add-urlencoded [input] (map  #(assoc % :urlencoded (ring.util.codec/url-encode (% :name))) input))
+(defn tagcloud [] (let[tags (count-tags)]  (if (>= (count tags) 2) (add-urlencoded (add-size-and-color (addweight tags))) nil)))
 
