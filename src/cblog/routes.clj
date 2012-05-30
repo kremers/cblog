@@ -69,7 +69,7 @@
     (wrap-stateful-session {:store (mongodb-store)})
     (wrap-file "resources")
     wrap-file-info
-    wrap-etag
+;    wrap-etag
     wrap-gzip
 )))
 
