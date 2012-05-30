@@ -25,7 +25,7 @@ $(document).ready(function() {
  if($("#title").val() != "") $("#title-prompt-text").hide();
  $("#title").focus(function(e) { $("#title-prompt-text").hide()   } );
  $("#title").blur(function() { if($(this).val() == "") $("#title-prompt-text").show();  } );
- var editor = new nicEditor({iconsPath: '/js/nicEditorIcons.gif'});
+ var editor = new nicEditor({fullPanel : true, iconsPath: '/js/nicEditorIcons.gif'});
  editor.panelInstance('textarea');
   
  $('.taginput').keydown(function(e) { /* 13 = return key */if( e.keyCode === 13) { return false; }});
