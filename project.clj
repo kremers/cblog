@@ -17,8 +17,9 @@
                  [kremers/sandbar "0.4.1-SNAPSHOT"]
                  [kremers/monger-session "1.0.0"]
                  [clj-aws-s3 "0.3.1"]
-                 ;[net.coobird/thumbnailator "0.4.1"] << memory leakish
+                 [amalloy/ring-gzip-middleware "0.1.1"]
                  [org.imgscalr/imgscalr-lib "4.2"]
+                 [org.clojars.mikejs/ring-etag-middleware "0.1.0-SNAPSHOT"]
                  ]
    :main cblog.core
    :source-path "src"

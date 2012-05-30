@@ -7,6 +7,8 @@
         [cblog util security admin db media tagcloud]
         [compojure core]
         [kremers.monger-session]
+        [ring.middleware.etag :only [wrap-etag]]
+        [ring.middleware.gzip :only [wrap-gzip]]
         [sandbar.form-authentication] [sandbar.validation] [sandbar.stateful-session] [sandbar.auth]
   ))
 
@@ -67,6 +69,8 @@
     (wrap-stateful-session {:store (mongodb-store)})
     (wrap-file "resources")
     wrap-file-info
+    wrap-etag
+    wrap-gzip
 )))
 
 
