@@ -49,7 +49,7 @@
     (GET  "/admin/media/list" [] (content-type (response (medialist_json)) "application/json;charset=UTF-8" ))
     (POST "/admin/media/submit" request (do (handle-submit request) (response "{\"success\": true}" )))
     (POST "/admin/media/remove" request (do (delete-media request) (content-type (response "{\"success\": true}" ) "application/json;charset=UTF-8" )))
-    (GET  "/feed"         request (content-type (response (render-rssfeed (:host request))) "application/rss+xml;charset=UTF-8"))
+    (GET  "/feed"         request (response (render-rssfeed (:host request))))
     (GET  "/tag/:tag" [tag] (envelope (render-file "templates/main" {:posts (vec (posts-by-tag tag)) })))
     (GET  ["/cdn/:key" :key #".+"] [key] (media_redirect key))
     (GET  "/:category" [category]  (envelope (render-file "templates/main" {:posts (vec (posts-by-urlfriendly-category category))})))
