@@ -15,7 +15,7 @@
      var url = "http://s3.amazonaws.com/"+content.bucket+"/"+content.key;
      var types = ["jpg", "gif", "png", "bmp"];
      if($.inArray(postfix,types) > -1) {
-       var thumbnail =  "<img src='/cdn/thumbnails/"+name+"_150_150."+postfix+"' />";
+       var thumbnail =  "<img src='/cdn/thumbnails/"+name+"_150_150.png"' />";
      } else {
        var thumbnail =  "n/a"
      }
