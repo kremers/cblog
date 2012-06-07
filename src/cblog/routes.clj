@@ -37,7 +37,7 @@
     (POST "/admin/categories/save" request (jsonresp (save-category request)))
     (POST "/admin/categories/remove" request (jsonresp (remove-category request)))
     (POST "/admin/categories/update" request (jsonresp (update-category request)))
-    (GET  "/admin/bootstrap" [] (do (bootstrap-database) (utf8response "bootstraped! See log for details.")))
+    (GET  "/bootstrap" [] (do (bootstrap-database) (utf8response "bootstraped! See log for details.")))
     (GET  "/admin/settings" [] (adminui (render-file "templates/admin_settings" (settings-overview))))
     (POST "/admin/settings/updatepartial" request (jsonresp (update-settings request)))
     (POST "/admin/settings/adminpwchange" request (jsonresp (update-adminpw  request)))
