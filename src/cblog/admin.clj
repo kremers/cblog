@@ -29,7 +29,9 @@
                        :content (params "content")
                        :tags    (params "tags[]")
                        :showtitle (= "on" (params "showtitle"))
-                       :active (not draft?)})]  
+                       :active (not draft?)
+                       :lastmodified (gen-timestamp)
+                       :created (or (params "created") (gen-timestamp))})]  
     (if-let [id (params "postid")] (update-by-id "posts" (ObjectId. id) post) (insert "posts" post))))
 
 (defn prepare-edit [params]

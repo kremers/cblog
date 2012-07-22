@@ -49,6 +49,7 @@ $(document).ready(function() {
 </script>
 
 <form id="pform" action="save" method="post">
+{{#post.created}}<input type="hidden" name="created" value="{{post.created}}" />{{/post.created}}
 <div id="postcontainer" style="position: relative; float: left; width:550px;">
   {{#post._id}}<input name="postid" type="hidden" value="{{post._id}}" />{{/post._id}}
   <label class="hide-if-no-js" id="title-prompt-text" for="title">Enter title here</label>
