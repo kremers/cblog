@@ -17,7 +17,7 @@
 
 (defn gen-thumbnail "returns input stream to image" [url x y] 
   (let [#^java.awt.image.BufferedImage old (javax.imageio.ImageIO/read (as-url url)) 
-        out (org.imgscalr.Scalr/resize old x y (into-array BufferedImageOp []))]
+        out (org.imgscalr.Scalr/resize old  org.imgscalr.Scalr$Method/ULTRA_QUALITY  x y (into-array BufferedImageOp []))]
     (with-open [aout (ByteArrayOutputStream.)] 
       (do (.flush old) (javax.imageio.ImageIO/write out "png" aout) (ByteArrayInputStream. (.toByteArray aout))))))
 
