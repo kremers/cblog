@@ -54,7 +54,10 @@
     (GET  "/feed"         request (response (render-rssfeed (:host request))))
     (GET  "/tag/:tag" [tag] (envelope (render-file "templates/main" {:posts (vec (posts-by-tag tag)) })))
     (GET  ["/cdn/:key" :key #".+"] [key] (media_redirect key))
-    (GET  "/:category" [category]  (envelope (render-file "templates/main" {:posts (vec (posts-by-urlfriendly-category category))})))
+    (GET  "/:category" [category]  (let [matching (vec (posts-by-urlfriendly-category category))]
+                                     (if (exists? "categories" {:urlfriendly category})
+                                       (envelope (render-file "templates/main" {:posts matching}))
+                                       (make-404))))
     (GET  "/:category/:post" [category, post] (envelope (render-file "templates/showpost" (readpost category post))))
     (ANY  "*" [] (utf8response (make-404)))
 )
