@@ -52,7 +52,7 @@
     (POST "/admin/media/submit" request (do (handle-submit request) (response "{\"success\": true}" )))
     (POST "/admin/media/remove" request (do (delete-media request) (content-type (response "{\"success\": true}" ) "application/json;charset=UTF-8" )))
     (GET  "/feed"         request (response (render-rssfeed (:host request))))
-    (GET  "/blog/:key" :key #".+" [key] (redirect (str "/" key)))
+    (GET  ["/blog/:key" :key #".+"] [key] (redirect (str "/" key)))
     (GET  "/tag/:tag" [tag] (let [taggedposts (posts-by-tag tag)]
                               (if (empty? taggedposts) (make-404)
                                (envelope (render-file "templates/main" {:posts (vec taggedposts) })))))
