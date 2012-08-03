@@ -52,7 +52,7 @@
     (POST "/admin/media/submit" request (do (handle-submit request) (response "{\"success\": true}" )))
     (POST "/admin/media/remove" request (do (delete-media request) (content-type (response "{\"success\": true}" ) "application/json;charset=UTF-8" )))
     (GET  "/feed"         request (response (render-rssfeed (:host request))))
-    (GET  "/blog/:x" [x] (redirect (str "/" x)))
+    (GET  "/blog/:key" :key #".+" [key] (redirect (str "/" key)))
     (GET  "/tag/:tag" [tag] (let [taggedposts (posts-by-tag tag)]
                               (if (empty? taggedposts) (make-404)
                                (envelope (render-file "templates/main" {:posts (vec taggedposts) })))))
@@ -61,7 +61,8 @@
                                      (if (exists? "categories" {:urlfriendly category})
                                        (envelope (render-file "templates/main" {:posts matching}))
                                        (make-404))))
-    (GET  "/:category/:post" [category, post] (envelope (render-file "templates/showpost" (readpost category post))))
+    (GET  "/:category/:post" [category, post] (if (empty? (readpost category post)) (make-404)
+                                                  (envelope (render-file "templates/showpost" (readpost category post)))))
     (ANY  "*" [] (utf8response (make-404))))
 
 (defn wrap-context-uri [handler] (fn [request] (handler (assoc request :host (str "http://" (:server-name request) ":" (:server-port request)) ))))
