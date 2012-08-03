@@ -30,3 +30,5 @@
 (defn urlfriend [unfriendly] (s/trim (s/replace (s/replace (s/lower-case unfriendly) #"[^A-Za-z0-9_]+" "-") #"^-|-$" "")))
 
 (defn in-coll? [elem coll] (boolean (some #{elem} coll)))
+
+(defn strip-trailing-slash [s] (if (= \/ (last s)) (apply str (butlast s)) s))
