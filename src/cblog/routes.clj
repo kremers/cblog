@@ -63,7 +63,7 @@
                                        (make-404))))
     (GET  "/:category/:post" [category, post] (if (empty? (readpost category post)) (make-404)
                                                   (envelope (render-file "templates/showpost" (readpost category post)))))
-    (ANY  "*" [] (utf8response (make-404))))
+    (ANY  "*" [] (make-404)))
 
 (defn wrap-context-uri [handler] (fn [request] (handler (assoc request :host (str "http://" (:server-name request) ":" (:server-port request)) ))))
 
