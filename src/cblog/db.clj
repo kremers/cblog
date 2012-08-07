@@ -18,7 +18,7 @@
 (defn +post [& [init]] 
   (merge {:title nil :content nil :active false :author nil 
           :created (gen-timestamp) :lastmodified nil :category nil 
-          :tags nil :showtitle true } init))
+          :tags nil :showtitle true :markdown nil} init))
 (defn +category [& [init]] 
   (merge {:name nil :urlfriendly nil :lastmodified (gen-timestamp)} init))
 (defn +settings [& [init]] 

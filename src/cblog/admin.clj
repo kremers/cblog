@@ -27,6 +27,7 @@
                        :author (current-username)
                        :category (params "category")
                        :content (params "content")
+                       :markdown (params "markdown")
                        :tags    (params "tags[]")
                        :showtitle (= "on" (params "showtitle"))
                        :active (not draft?)

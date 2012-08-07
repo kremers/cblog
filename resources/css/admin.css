@@ -177,5 +177,5 @@ input,textarea
   text-indent: -9999px;
   overflow: hidden;
   position: absolute;
-  background: url(http://www.martinkremers.de/blog/wp-admin/images/xit.gif) no-repeat; 
+  background: url(/img/xit.gif) no-repeat; 
 }

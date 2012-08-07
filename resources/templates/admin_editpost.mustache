@@ -1,9 +1,7 @@
 
 {{#postid}}<h2 class="widgettitle">Edit Post</h2>{{/postid}}
 {{^postid}}<h2 class="widgettitle">Add New Post</h2>{{/postid}}
-<!--<script type="text/javascript" src="/js/nicEdit.js"></script>-->
-<script type="text/javascript" src="/js/advanced.js"></script>
-<script type="text/javascript" src="/js/wysihtml5-0.3.0_rc2.min.js"></script>
+<script type="text/javascript" src="/ee/js/epiceditor.min.js"></script>
 <script type="text/javascript">
 var tags = [];
 $(document).ready(function() {
@@ -27,14 +25,6 @@ $(document).ready(function() {
  if($("#title").val() != "") $("#title-prompt-text").hide();
  $("#title").focus(function(e) { $("#title-prompt-text").hide()   } );
  $("#title").blur(function() { if($(this).val() == "") $("#title-prompt-text").show();  } );
- //var editor = new nicEditor({fullPanel : true, iconsPath: '/js/nicEditorIcons.gif'});
- //editor.panelInstance('textarea');
-  
- var editor = new wysihtml5.Editor("textarea", { // id of textarea element
-  toolbar:      "toolbar", // id of toolbar element
-  stylesheets: ["css/editor.css"],
-  parserRules:  wysihtml5ParserRules // defined in parser rules set 
-});
 
  $('.taginput').keydown(function(e) { /* 13 = return key */if( e.keyCode === 13) { return false; }});
 
@@ -45,6 +35,24 @@ $(document).ready(function() {
      if($.inArray(tag, tags) == -1) tags.push(tag);
    }); rendertags();
  });
+
+  var opts = {
+  basePath: '/ee',
+  clientSideStorage: false
+  };
+  var editor = new EpicEditor(opts).load();
+  var refresh = function () {
+   $('#textarea').val(editor.exportFile("fname","html"));
+   $('#markdown').val(editor.exportFile("fname"));
+  };
+  
+  {{#post.markdown}}editor.importFile("fname",$('#markdown').val());{{/post.markdown}}
+  {{^post.markdown}}{{#post.content}}editor.importFile("fname",$('#textarea').val());{{/post.content}}{{/post.markdown}} 
+  
+  editor.on('update', refresh); 
+  refresh();
+  $('#textarea').hide();  
+  $('#markdown').hide();
 });
 </script>
 
@@ -54,49 +62,9 @@ $(document).ready(function() {
   {{#post._id}}<input name="postid" type="hidden" value="{{post._id}}" />{{/post._id}}
   <label class="hide-if-no-js" id="title-prompt-text" for="title">Enter title here</label>
   <input type="text" name="title" size="30" tabindex="1" id="title" autocomplete="off" value="{{post.title}}" tabindex="1"> <br />
-
-  <div id="toolbar" style="display: none;">
-    <a data-wysihtml5-command="bold" title="CTRL+B">bold</a> |
-    <a data-wysihtml5-command="italic" title="CTRL+I">italic</a> |
-    <a data-wysihtml5-command="createLink">insert link</a> |
-    <a data-wysihtml5-command="insertImage">insert image</a> |
-    <a data-wysihtml5-command="formatBlock" data-wysihtml5-command-value="h1">h1</a> |
-    <a data-wysihtml5-command="formatBlock" data-wysihtml5-command-value="h2">h2</a> |
-    <a data-wysihtml5-command="insertUnorderedList">insertUnorderedList</a> |
-    <a data-wysihtml5-command="insertOrderedList">insertOrderedList</a> |
-    <a data-wysihtml5-command="foreColor" data-wysihtml5-command-value="red">red</a> |
-    <a data-wysihtml5-command="foreColor" data-wysihtml5-command-value="green">green</a> |
-    <a data-wysihtml5-command="foreColor" data-wysihtml5-command-value="blue">blue</a> |
-    <a data-wysihtml5-command="insertSpeech">speech</a>
-    <a data-wysihtml5-action="change_view">switch to html view</a>
-    
-    <div data-wysihtml5-dialog="createLink" style="display: none;">
-      <label>
-        Link:
-        <input data-wysihtml5-dialog-field="href" value="http://">
-      </label>
-      <a data-wysihtml5-dialog-action="save">OK</a>&nbsp;<a data-wysihtml5-dialog-action="cancel">Cancel</a>
-    </div>
-    
-    <div data-wysihtml5-dialog="insertImage" style="display: none;">
-      <label>
-        Image:
-        <input data-wysihtml5-dialog-field="src" value="http://">
-      </label>
-      <label>
-        Align:
-        <select data-wysihtml5-dialog-field="className">
-          <option value="">default</option>
-          <option value="wysiwyg-float-left">left</option>
-          <option value="wysiwyg-float-right">right</option>
-        </select>
-      </label>
-      <a data-wysihtml5-dialog-action="save">OK</a>&nbsp;<a data-wysihtml5-dialog-action="cancel">Cancel</a>
-    </div>
-    
-  </div>
-
+  <div id="epiceditor" style="height:500px;"></div>
   <textarea id="textarea" name="content" cols="35" rows="20" tabindex="2">{{post.content}}</textarea>
+  <textarea name="markdown" id="markdown">{{post.markdown}}</textarea>
 </div>
 
 <div id="submitbuttons" class="uiwidget">
