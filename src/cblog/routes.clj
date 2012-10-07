@@ -10,6 +10,7 @@
         [ring.middleware.etag :only [wrap-etag]]
         [ring.middleware.gzip :only [wrap-gzip]]
         [sandbar.form-authentication] [sandbar.validation] [sandbar.stateful-session] [sandbar.auth]
+        [monger.ring.session-store :only [session-store]]
   ))
 
 
@@ -72,7 +73,7 @@
     (with-security security-policy form-authentication)
     wrap-params
     wrap-context-uri
-    (wrap-stateful-session {:store (mongodb-store)})
+    (wrap-stateful-session {:store (session-store :sessions)})
     (wrap-file "resources")
     wrap-file-info
 ;    wrap-etag

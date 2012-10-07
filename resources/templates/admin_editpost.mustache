@@ -47,7 +47,10 @@ $(document).ready(function() {
   };
   
   {{#post.markdown}}editor.importFile("fname",$('#markdown').val());{{/post.markdown}}
-  {{^post.markdown}}{{#post.content}}editor.importFile("fname",$('#textarea').val());{{/post.content}}{{/post.markdown}} 
+  {{^post.markdown}}
+    {{#post.content}}editor.importFile("fname",$('#textarea').val());{{/post.content}}
+    {{^post.content}}editor.importFile("fname","");{{/post.content}}
+  {{/post.markdown}} 
   
   editor.on('update', refresh); 
   refresh();
