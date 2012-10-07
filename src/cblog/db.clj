@@ -1,8 +1,7 @@
 (ns cblog.db
-  (:import [com.mongodb.MapReduceCommand$OutputType])
   (:require [monger.query :as q])
   (:use [sandbar.auth] [cblog.util] [monger.core :only [connect! connect set-db! get-db]]
-        [monger.collection :only [find-maps insert find-one-as-map map-reduce]] [monger.operators]
+        [monger.collection :only [any? find-maps insert find-one-as-map map-reduce]] [monger.operators]
         [monger.conversion]
         [stencil.core]
         [clojure.string :only [lower-case]]
@@ -67,19 +66,16 @@
 
 (defn posts-by-tag [tag] (filter #(in-coll? tag (:tags %)) (read-posts)))
 
-(defn exists? [collection param] 
-  (not (empty? (find-one-as-map collection param))))
-
 (defn basicinfo [] {:headercategories (vec (filter #(not= (:name %) "Welcome") (find-maps "categories")))
                     :username (current-username)
                     :recentposts (recentposts)
                     :settings (find-one-as-map "settings" {:version 0}) })
 
 (defn bootstrap-database []
- (let [admin-exists    (exists? "users" {:login "admin"}) 
-       welcome-exists  (exists? "categories" {:name "Welcome"})
-       post-exists     (exists? "posts" {:category "Welcome"})
-       settings-exists (exists? "settings" {:version 0})] 
+ (let [admin-exists    (any? "users" {:login "admin"}) 
+       welcome-exists  (any? "categories" {:name "Welcome"})
+       post-exists     (any? "posts" {:category "Welcome"})
+       settings-exists (any? "settings" {:version 0})] 
    (dorun (map #(info (str (key %) (val %))) {"exists(admin): " admin-exists 
                                               "exists(welcome): " welcome-exists 
                                               "exists(firstpost): " post-exists

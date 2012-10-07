@@ -6,11 +6,11 @@
         [clojure.tools.logging :only (info error)]
         [cblog util security admin db media tagcloud]
         [compojure core]
-        [kremers.monger-session]
         [ring.middleware.etag :only [wrap-etag]]
         [ring.middleware.gzip :only [wrap-gzip]]
         [sandbar.form-authentication] [sandbar.validation] [sandbar.stateful-session] [sandbar.auth]
         [monger.ring.session-store :only [session-store]]
+        [monger.collection :only [any?]]
   ))
 
 
@@ -59,7 +59,7 @@
                                (envelope (render-file "templates/main" {:posts (vec taggedposts) })))))
     (GET  ["/cdn/:key" :key #".+"] [key] (media_redirect key))
     (GET  "/:category" [category]  (let [matching (vec (posts-by-urlfriendly-category category))]
-                                     (if (exists? "categories" {:urlfriendly category})
+                                     (if (any? "categories" {:urlfriendly category})
                                        (envelope (render-file "templates/main" {:posts matching}))
                                        (make-404))))
     (GET  "/:category/:post" [category, post] (if (empty? (readpost category post)) (make-404)
