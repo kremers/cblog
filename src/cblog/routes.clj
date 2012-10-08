@@ -4,7 +4,7 @@
         [ring.util.response :only [content-type response redirect header]]
         [stencil.core]
         [clojure.tools.logging :only (info error)]
-        [cblog util security admin db media tagcloud]
+        [cblog util admin db media tagcloud]
         [compojure core]
         [ring.middleware.etag :only [wrap-etag]]
         [ring.middleware.gzip :only [wrap-gzip]]
@@ -23,8 +23,14 @@
                                     (basicinfo) 
                                     {:adminmenue (render-file "templates/adminmenue" nil)}))))
 
+(defrecord simpleAdminAuth [] FormAuthAdapter
+           (load-user [this username password] (let [login {:username username :password password}]
+                                                 (cond (= username "admin") (merge login {:roles #{:admin}}) :else login)))
+           (validate-password [this] (fn [m] (if-not (empty? (dbauth (:username m) (hash-password (:password m) "hawaiian black salt"))) m
+                                                    (add-validation-error m "Username and password do not match!")))))
+
 (defroutes my-routes 
-    (form-authentication-routes (fn [_ c] (layout c)) (form-authentication-adapter))
+    (form-authentication-routes (fn [_ c] (layout c)) (simpleAdminAuth.))
     (GET  "/" [] (envelope (render-file "templates/main" {:posts (vec (posts-by-category "Welcome"))}) ))
     (GET  "/admin" [] (redirect "/admin/"))
     (GET  "/admin/" [] (adminui (render-file "templates/admin" nil)))
@@ -65,6 +71,17 @@
     (GET  "/:category/:post" [category, post] (if (empty? (readpost category post)) (make-404)
                                                   (envelope (render-file "templates/showpost" (readpost category post)))))
     (ANY  "*" [] (make-404)))
+
+(def security-policy
+  [#"/admin.*"                   :admin
+   #".*\.(css|js|png|jpg|gif|ico)$" :any
+   #"/admin/bootstrap"           :any
+   #"/permission-denied.*"       :any
+   #"/login.*"                   :any
+   #"/logout.*"                  :any
+   #"/index.html"                :any
+   #"/"                          :any
+   #".*"                         :any])
 
 (defn wrap-context-uri [handler] (fn [request] (handler (assoc request :host (str "http://" (:server-name request) ":" (:server-port request)) ))))
 
