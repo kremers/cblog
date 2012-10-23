@@ -17,9 +17,13 @@ $(document).ready(function() {
    });
 
   $(".heading").click(function() {
-    //var randomnumber=Math.floor(Math.random()*11)
-    //$(this).attr("href","#"+randomnumber);
-    $(this).parent().find("div:first").fadeIn();
+    var content = $(this).parent().find("div:first");
+    
+    if(! content.is(":visible"))
+         content.fadeIn();
+    else
+         content.fadeOut();
+         
   });
 });
 </script>
