@@ -65,7 +65,7 @@
 (defn readpost [urlfriendcat, urlfriendtitle] 
   (let [found (filter #(= urlfriendtitle (urlfriend (:title %))) (posts-by-urlfriendly-category urlfriendcat))] (first found)))
 
-(defn posts-by-tag [tag] (filter #(in-coll? tag (:tags %)) (read-posts-but-skip-welcome-page)))
+(defn posts-by-tag [tag] (filter #(in-coll? tag (:tags %)) (read-posts-but-skip-welcome-page 0)))
 
 (defn basicinfo [] {:headercategories (vec (filter #(not= (:name %) "Welcome") (find-maps "categories")))
                     :username (current-username)
