@@ -41,16 +41,10 @@
 
 (defn dbauth [user pass] (find-one-as-map "users" {:login user :pass pass}))
 
-(defn posts-by-category [category] 
-  (reverse (sort-by :created (for [x (find-maps "posts" {:category category :active true})] (update-in x [:content] post-postprocess)))))
-
-(defn posts-by-urlfriendly-category [urlfriendly] 
-  (let [category (:name (find-one-as-map "categories" {:urlfriendly urlfriendly}))] (posts-by-category category)))
-
 (defn all-categories [] (find-maps "categories"))
 
 (defn read-posts    ([] (read-posts 0))
-                    ([limit] (for [x (q/with-collection "posts" (q/find {:active true :category {$ne "Welcome"} }) 
+                    ([limit & [additional]] (for [x (q/with-collection "posts" (q/find (merge {:active true} additional)) 
                               (q/sort { :created -1 }) (q/limit limit)) 
                            y (map #(select-keys % [:urlfriendly :name] ) (all-categories)) 
                            :let [ z (merge x { :urlfriendly (y :urlfriendly) 
@@ -59,12 +53,19 @@
                                                :excerpt (let [c (x :content)] (if (> (count c) 100) (str (subs c 100) " [...]") c)) } ) ] 
                            :when (= (x :category) (y :name))] z)))
 
-(defn recentposts [] (read-posts 5))
+(defn read-posts-but-skip-welcome-page [num] (read-posts num {:category {$ne "Welcome"} }))
+
+(defn recentposts [] (read-posts-but-skip-welcome-page 5))
+
+(defn posts-by-category [category] (reverse (sort-by :created (read-posts 0 {:category category}))))
+
+(defn posts-by-urlfriendly-category [urlfriendly]
+    (let [category (:name (find-one-as-map "categories" {:urlfriendly urlfriendly}))] (posts-by-category category)))
 
 (defn readpost [urlfriendcat, urlfriendtitle] 
   (let [found (filter #(= urlfriendtitle (urlfriend (:title %))) (posts-by-urlfriendly-category urlfriendcat))] (first found)))
 
-(defn posts-by-tag [tag] (filter #(in-coll? tag (:tags %)) (read-posts)))
+(defn posts-by-tag [tag] (filter #(in-coll? tag (:tags %)) (read-posts-but-skip-welcome-page)))
 
 (defn basicinfo [] {:headercategories (vec (filter #(not= (:name %) "Welcome") (find-maps "categories")))
                     :username (current-username)
@@ -101,7 +102,7 @@
 
 
 (defn prepare-feed    [] (let [settings (settings-overview)
-                               posts    (seq (read-posts))] 
+                               posts    (seq (read-posts-but-skip-welcome-page 0))] 
                            {:settings settings :posts posts} )) 
 (defn render-atomfeed [] (render-file "templates/feed/atom" (prepare-feed)))
 (defn render-rssfeed  [host] (render-file "templates/feed/rss" (merge (prepare-feed) {:host host})))

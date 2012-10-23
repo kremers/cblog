@@ -14,6 +14,16 @@
 		First Release of Whitespace
 */
 
+@font-face{
+  font-family:'BebasNeueRegular';
+  src: url('/fonts/BebasNeue-webfont.eot') format('embedded-opentype');
+  src: url('/fonts/BebasNeue-webfont.woff') format('woff');
+  src: url('/fonts/BebasNeue-webfont.ttf') format('truetype');
+  src: url('/fonts/BebasNeue-webfont.svg#BebasNeueRegular') format('svg');
+  font-weight:normal;font-style:normal;
+}
+
+
 .commentbubble { 
     background-image: url(images/commentbubble.png); 
     height: 37px; 

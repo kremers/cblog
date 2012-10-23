@@ -1,9 +1,25 @@
 
 {{#posts}}
-  {{#showtitle}}<h3>{{title}}</h3>{{/showtitle}}
-  {{{content}}}
+<div style="top:0; left:0; display: block;">
+  {{#showtitle}}<a class="heading" href="#{{urlfriendtitle}}" style="text-decoration: none; color: #555555;"><h3 style="margin: 5px 0 5px 0; font: 25px/30px 'BebasNeueRegular', Impact, Arial, sans-serif">{{title}}</h3></a>{{/showtitle}}
+  <div {{#showtitle}}style="display:none"{{/showtitle}}> {{{content}}}
   <div style="clear:both;"></div>
-  <hr />
+  <hr /></div>
+</div>
 {{/posts}}
 
+<script type="text/javascript">
+$(document).ready(function() {
+  $(".heading").hover(function(e) {
+  $(this).find("h3").append('<img style="margin-left: 5px;" src="/img/book_open.png" />');
+  }, function () {
+    $(this).find("h3").find("img:last").remove();
+   });
 
+  $(".heading").click(function() {
+    //var randomnumber=Math.floor(Math.random()*11)
+    //$(this).attr("href","#"+randomnumber);
+    $(this).parent().find("div:first").fadeIn();
+  });
+});
+</script>

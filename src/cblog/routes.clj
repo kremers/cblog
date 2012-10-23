@@ -3,20 +3,22 @@
         [net.cgrand.moustache :only [app]]
         [ring.util.response :only [content-type response redirect header]]
         [stencil.core]
+        [stencil.loader :only [unregister-all-templates]]
         [clojure.tools.logging :only (info error)]
         [cblog util admin db media tagcloud]
         [compojure core]
-        [ring.middleware.etag :only [wrap-etag]]
+       ; [ring.middleware.etag :only [wrap-etag]]
         [ring.middleware.gzip :only [wrap-gzip]]
         [sandbar.form-authentication] [sandbar.validation] [sandbar.stateful-session] [sandbar.auth]
         [monger.ring.session-store :only [session-store]]
         [monger.collection :only [any?]]
   ))
 
+(def development? (= "development" (get (System/getenv) "APP_ENV")))
 
-(defn envelope
-  [content] (utf8response (render-file "templates/default"
-                             (merge {:capsule content} (basicinfo) {:tagcloud (tagcloud)} {:links (vec (get-links))}))))
+(defn envelope 
+  [content] (do (if development? (unregister-all-templates))
+                (utf8response (render-file "templates/default" (merge {:capsule content} (basicinfo) {:tagcloud (tagcloud)} {:links (vec (get-links))})))))
 (defn adminui
   [content] (utf8response (render-file "templates/default_adminui" 
                              (merge {:capsule content} 
@@ -85,16 +87,16 @@
 
 (defn wrap-context-uri [handler] (fn [request] (handler (assoc request :host (str "http://" (:server-name request) ":" (:server-port request)) ))))
 
-(defn init-routes! [] (app 
+(defn init-routes! [] (app  
   (-> my-routes 
     (with-security security-policy form-authentication)
     wrap-params
     wrap-context-uri
     (wrap-stateful-session {:store (session-store :sessions)})
     (wrap-file "resources")
-    wrap-file-info
+    (wrap-file-info {"woff" "application/x-font-woff" "eot" "font/eot" })
 ;    wrap-etag
-    wrap-gzip
-)))
+    wrap-gzip)))
+
 
 
