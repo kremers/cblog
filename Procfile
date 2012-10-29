@@ -1,1 +1,1 @@
-web: lein trampoline run -m cblog.core
+web: lein2 trampoline run -m cblog.core

@@ -1,8 +1,7 @@
-(defproject cblog "0.1.0-SNAPSHOT"
+(defproject cblog "1.0.0"
   :description "simple blog in clojure"
-  :dev-dependencies [[lein-ring "0.6.3"]]
-  :dependencies [[ring/ring-jetty-adapter "1.1.0-beta3"]
-                 [org.clojure/clojure "1.4.0"]
+  :dependencies [[org.clojure/clojure "1.4.0"]
+                 [ring/ring-jetty-adapter "1.1.0-beta3"]
                  [ring "1.1.6"]
                  [clj-time "0.4.4"]
                  [net.cgrand/moustache "1.1.0"]
@@ -21,9 +20,8 @@
                  ]
    :main cblog.core
    :source-path "src"
-   :jvm-opts ["-Djava.awt.headless=true"]
+   :jvm-opts ["-Djava.awt.headless=true" "-XX:+UseSerialGC"]
    :ring {:handler cblog.core/routes}
    :properties { :project.build.sourceEncoding "UTF-8" }
-   :plugins  [[lein-swank "1.4.4"]] 
-
+   :plugins  [[lein-swank "1.4.4"] [lein-ring "0.7.5"]] 
 )
