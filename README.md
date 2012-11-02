@@ -4,6 +4,7 @@ Version 1.0.0 and instructions for the basic setup will be released soon.
 DEMO: http://www.martinkremers.de
 
 Local setup: 
+
 1. Install MongoDB on localhost
 2. git clone & ./run.sh
 3. Browse "/bootstrap"
@@ -12,9 +13,18 @@ Local setup:
 6. Enter amazon s3 credentials in Settings section
  
 Heroku setup:
+
 1. git push to heroku
 2. setup mongohq & logging for the application
 3. Next steps see local setup 3.ff
+
+Super-awesome features:
+
+- No local storage, using amazon s3
+- No local session, using mongodb session adapter
+- No local data,    using mongodb 
+- Markdown for post editing
+- Tagcloud, Image minifier,...
 
 ![build status](https://secure.travis-ci.org/kremers/cblog.png?branch=master)
 
