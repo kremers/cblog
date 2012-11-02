@@ -1,7 +1,7 @@
 (defproject cblog "1.0.0"
   :description "simple blog in clojure"
   :dependencies [[org.clojure/clojure "1.4.0"]
-                 [ring/ring-jetty-adapter "1.1.0-beta3"]
+                 ;[ring/ring-jetty-adapter "1.1.0-beta3"]
                  [ring "1.1.6"]
                  [clj-time "0.4.4"]
                  [net.cgrand/moustache "1.1.0"]

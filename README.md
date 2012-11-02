@@ -1,6 +1,21 @@
 # cblog
 Version 1.0.0 and instructions for the basic setup will be released soon. 
 
+DEMO: http://www.martinkremers.de
+
+Local setup: 
+1. Install MongoDB on localhost
+2. git clone & ./run.sh
+3. Browse "/bootstrap"
+4. Browse "/admin" and login with default credentials admin:admin
+5. Change admin password
+6. Enter amazon s3 credentials in Settings section
+ 
+Heroku setup:
+1. git push to heroku
+2. setup mongohq & logging for the application
+3. Next steps see local setup 3.ff
+
 ![build status](https://secure.travis-ci.org/kremers/cblog.png?branch=master)
 
 Blogging software written in clojure. 
