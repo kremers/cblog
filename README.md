@@ -26,8 +26,6 @@ Super-awesome features:
 - Markdown for post editing
 - Tagcloud, Image minifier,...
 
-![build status](https://secure.travis-ci.org/kremers/cblog.png?branch=master)
-
 Blogging software written in clojure. 
 
 Next todos:
