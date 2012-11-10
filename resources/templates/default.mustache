@@ -26,7 +26,27 @@
 	          font:11px 'Trebuchet MS','Myriad Pro',sans-serif;height:40px;
 		  line-height:100%;overflow:hidden;padding:8px 0 0;text-align:center;width:120px}
 	  </style>
-	   
+
+{{#settings.analyticsaccountkey}}
+
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', '{{settings.analyticsaccountkey}}']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type =
+    'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' :
+    'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+{{/settings.analyticsaccountkey}}
+   
     </head>
     <body onload="prettyPrint()">
     <div id="wrap">
@@ -109,24 +129,5 @@
   </div>
 </div>
 </div>
-
-{{#settings.analyticsaccountkey}}
-<script type="text/javascript">
-
-  var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', '{{settings.analyticsaccountkey}}']);
-  _gaq.push(['_trackPageview']);
-
-  (function() {
-    var ga = document.createElement('script'); ga.type =
-    'text/javascript'; ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://ssl' :
-    'http://www') + '.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0];
-    s.parentNode.insertBefore(ga, s);
-  })();
-
-</script>
-{{/settings.analyticsaccountkey}}
 
 </html>
