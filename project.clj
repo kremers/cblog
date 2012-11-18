@@ -20,7 +20,12 @@
                  ]
    :main cblog.core
    :source-path "src"
-   :jvm-opts ["-Djava.awt.headless=true" "-XX:+UseSerialGC"]
+   :jvm-opts ["-server"
+              "-Djava.awt.headless=true" 
+              "-XX:+UseConcMarkSweepGC"
+              "-XX:+CMSIncrementalMode"
+              "-XX:+DoEscapeAnalysis"
+              "-XX:+UseBiasedLocking"]
    :ring {:handler cblog.core/routes}
    :properties { :project.build.sourceEncoding "UTF-8" }
    :plugins  [[lein-swank "1.4.4"] [lein-ring "0.7.5"]] 
