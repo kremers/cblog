@@ -19,7 +19,7 @@
                  [org.clojars.mikejs/ring-etag-middleware "0.1.0-SNAPSHOT"]
                  ]
    :main cblog.core
-   :min-lein-version "2.0.0"
+;   :min-lein-version "2.0.0"
    :source-path "src"
    :jvm-opts ["-server"
               "-Djava.awt.headless=true" 
